@@ -1,0 +1,5 @@
+Total_alignments=  3502282 data/16_Remove_sex_chromosome_blocks/hominoidae/Hsapien.bed
+BP_in_total_alignments= 2197182775
+Merged_alignments=  190564 data/16_Remove_sex_chromosome_blocks/hominoidae/Hsapien.bed.tmp
+BP_in_merged_alignments= 2193871057
+BP_in_genome= 3117275501

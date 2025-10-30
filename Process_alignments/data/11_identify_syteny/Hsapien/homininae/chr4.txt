@@ -1,0 +1,9 @@
+H. sapiens	chr4
+S. syndactylus	chr4_hap1
+S. syndactylus	chr10_hap1
+S. syndactylus	chr16_hap1
+P. paniscus	chr3_pat_hsa4
+P. abelii	chr3_hap1_hsa4
+P. troglodytes	chr3_hap1_hsa4
+G. gorilla	chr3_pat_hsa4
+P. pygmaeus	chr3_hap1_hsa4

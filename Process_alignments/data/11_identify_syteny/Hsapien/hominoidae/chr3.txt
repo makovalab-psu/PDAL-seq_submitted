@@ -1,0 +1,9 @@
+H. sapiens	chr3
+P. troglodytes	chr2_hap1_hsa3
+P. paniscus	chr2_mat_hsa3
+P. pygmaeus	chr2_hap1_hsa3
+P. abelii	chr2_hap1_hsa3
+S. syndactylus	chr21_hap1
+S. syndactylus	chr17_hap1
+S. syndactylus	chr1_hap1
+G. gorilla	chr2_pat_hsa3

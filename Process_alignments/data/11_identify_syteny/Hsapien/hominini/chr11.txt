@@ -1,0 +1,8 @@
+H. sapiens	chr11
+P. troglodytes	chr9_hap1_hsa11
+G. gorilla	chr9_pat_hsa11
+P. paniscus	chr9_pat_hsa11
+S. syndactylus	chr6_hap1
+S. syndactylus	chr3_hap1
+P. abelii	chr9_hap1_hsa11
+P. pygmaeus	chr9_hap1_hsa11

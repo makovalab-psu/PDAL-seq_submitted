@@ -1,0 +1,8 @@
+H. sapiens	chr10
+P. paniscus	chr8_mat_hsa10
+P. troglodytes	chr8_hap1_hsa10
+G. gorilla	chr8_pat_hsa10
+P. abelii	chr8_hap1_hsa10
+P. pygmaeus	chr8_hap1_hsa10
+S. syndactylus	chr4_hap1
+S. syndactylus	chr2_hap1

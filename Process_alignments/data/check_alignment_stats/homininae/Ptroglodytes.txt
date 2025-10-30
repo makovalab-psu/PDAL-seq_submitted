@@ -1,0 +1,5 @@
+Total_alignments=  3688745 data/16_Remove_sex_chromosome_blocks/homininae/Ptroglodytes.bed
+BP_in_total_alignments= 2298596674
+Merged_alignments=  933992 data/16_Remove_sex_chromosome_blocks/homininae/Ptroglodytes.bed.tmp
+BP_in_merged_alignments= 2277809600
+BP_in_genome= 3177739762

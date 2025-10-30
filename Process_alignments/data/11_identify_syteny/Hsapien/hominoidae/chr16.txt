@@ -1,0 +1,8 @@
+H. sapiens	chr16
+P. troglodytes	chr18_hap1_hsa16
+P. paniscus	chr18_pat_hsa16
+P. pygmaeus	chr18_hap1_hsa16
+P. abelii	chr18_hap1_hsa16
+S. syndactylus	chr11_hap1
+S. syndactylus	chr14_hap1
+G. gorilla	chr18_pat_hsa16

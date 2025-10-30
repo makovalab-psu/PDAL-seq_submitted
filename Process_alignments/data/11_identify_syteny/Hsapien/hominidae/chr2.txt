@@ -1,0 +1,15 @@
+H. sapiens	chr2
+P. paniscus	chr13_mat_hsa2b
+P. paniscus	chr12_mat_hsa2a
+P. abelii	chr11_hap1_hsa2b
+P. abelii	chr12_hap1_hsa2a
+P. pygmaeus	chr11_hap1_hsa2b
+P. pygmaeus	chr12_hap1_hsa2a
+G. gorilla	chr11_mat_hsa2b
+G. gorilla	chr12_pat_hsa2a
+S. syndactylus	chr8_hap1
+S. syndactylus	chr14_hap1
+S. syndactylus	chr22_hap1
+S. syndactylus	chr18_hap1
+P. troglodytes	chr13_hap1_hsa2b
+P. troglodytes	chr12_hap1_hsa2a

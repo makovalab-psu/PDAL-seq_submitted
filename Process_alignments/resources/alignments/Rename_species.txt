@@ -1,0 +1,7 @@
+GCA_028878055.2,Ssyndactylus
+hs1,Hsapien
+GCA_029289425.2,Ppaniscus
+GCA_028885655.2,Pabelii
+GCA_028858775.2,Ptroglodytes
+GCA_028885625.2,Ppygmaeus
+GCA_029281585.2,Ggorilla

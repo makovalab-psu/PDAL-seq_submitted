@@ -1,0 +1,8 @@
+H. sapiens	chr14
+P. troglodytes	chr15_hap1_hsa14
+P. paniscus	chr15_mat_hsa14
+P. pygmaeus	chr15_hap1_hsa14
+P. abelii	chr15_hap1_hsa14
+S. syndactylus	chr8_hap1
+S. syndactylus	chr9_hap1
+G. gorilla	chr15_pat_hsa14

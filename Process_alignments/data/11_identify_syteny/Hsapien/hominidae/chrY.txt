@@ -1,0 +1,13 @@
+H. sapiens	chrY
+P. paniscus	chrY_pat_hsaY
+P. paniscus	chrX_mat_hsaX
+P. abelii	chrY_hap2_hsaY
+P. abelii	chrX_hap1_hsaX
+P. pygmaeus	chrY_hap2_hsaY
+P. pygmaeus	chrX_hap1_hsaX
+G. gorilla	chrY_pat_hsaY
+G. gorilla	chrX_mat_hsaX
+S. syndactylus	chrX_hap1
+S. syndactylus	chrY_hap2
+P. troglodytes	chrY_hap2_hsaY
+P. troglodytes	chrX_hap1_hsaX

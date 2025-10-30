@@ -1,0 +1,5 @@
+Total_alignments=  3721099 data/16_Remove_sex_chromosome_blocks/hominini/Pabelii.bed
+BP_in_total_alignments= 2309679690
+Merged_alignments=  1963097 data/16_Remove_sex_chromosome_blocks/hominini/Pabelii.bed.tmp
+BP_in_merged_alignments= 2285726842
+BP_in_genome= 3259853530

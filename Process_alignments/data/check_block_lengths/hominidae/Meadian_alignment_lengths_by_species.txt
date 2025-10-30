@@ -1,0 +1,8 @@
+Species MedianL
+Hsapien 516
+Ptroglodytes 514
+Ppaniscus 514
+Ggorilla 513
+Ppygmaeus 511
+Pabelii 511
+Ssyndactylus 511

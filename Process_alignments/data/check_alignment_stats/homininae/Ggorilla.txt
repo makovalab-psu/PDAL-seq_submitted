@@ -1,0 +1,5 @@
+Total_alignments=  3688745 data/16_Remove_sex_chromosome_blocks/homininae/Ggorilla.bed
+BP_in_total_alignments= 2297096400
+Merged_alignments=  1103270 data/16_Remove_sex_chromosome_blocks/homininae/Ggorilla.bed.tmp
+BP_in_merged_alignments= 2274359040
+BP_in_genome= 3545834224

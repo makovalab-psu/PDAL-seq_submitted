@@ -1,0 +1,7 @@
+H. sapiens	chrX
+S. syndactylus	chrX_hap1
+P. paniscus	chrX_mat_hsaX
+P. abelii	chrX_hap1_hsaX
+P. troglodytes	chrX_hap1_hsaX
+G. gorilla	chrX_mat_hsaX
+P. pygmaeus	chrX_hap1_hsaX

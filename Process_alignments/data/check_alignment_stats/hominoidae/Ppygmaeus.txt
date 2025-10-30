@@ -1,0 +1,5 @@
+Total_alignments=  3502282 data/16_Remove_sex_chromosome_blocks/hominoidae/Ppygmaeus.bed
+BP_in_total_alignments= 2177845310
+Merged_alignments=  1831042 data/16_Remove_sex_chromosome_blocks/hominoidae/Ppygmaeus.bed.tmp
+BP_in_merged_alignments= 2156365377
+BP_in_genome= 3220935163

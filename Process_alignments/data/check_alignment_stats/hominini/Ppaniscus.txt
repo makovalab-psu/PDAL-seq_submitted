@@ -1,0 +1,5 @@
+Total_alignments=  3721099 data/16_Remove_sex_chromosome_blocks/hominini/Ppaniscus.bed
+BP_in_total_alignments= 2315526230
+Merged_alignments=  939239 data/16_Remove_sex_chromosome_blocks/hominini/Ppaniscus.bed.tmp
+BP_in_merged_alignments= 2293863564
+BP_in_genome= 3244888708

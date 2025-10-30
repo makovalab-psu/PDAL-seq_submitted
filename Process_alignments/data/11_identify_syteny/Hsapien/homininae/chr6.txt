@@ -1,0 +1,8 @@
+H. sapiens	chr6
+S. syndactylus	chr2_hap1
+S. syndactylus	chr23_hap1
+P. paniscus	chr5_pat_hsa6
+P. abelii	chr5_hap1_hsa6
+P. troglodytes	chr5_hap1_hsa6
+G. gorilla	chr5_mat_hsa6
+P. pygmaeus	chr5_hap1_hsa6

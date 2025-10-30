@@ -1,0 +1,5 @@
+Total_alignments=  3629915 data/16_Remove_sex_chromosome_blocks/hominidae/Ssyndactylus.bed
+BP_in_total_alignments= 2253539211
+Merged_alignments=  2212800 data/16_Remove_sex_chromosome_blocks/hominidae/Ssyndactylus.bed.tmp
+BP_in_merged_alignments= 2229345168
+BP_in_genome= 3262887708

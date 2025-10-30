@@ -1,0 +1,8 @@
+H. sapiens	chr17
+P. troglodytes	chr19_hap1_hsa17
+P. paniscus	chr19_pat_hsa17
+P. pygmaeus	chr19_hap1_hsa17
+P. abelii	chr19_hap1_hsa17
+S. syndactylus	chr20_hap1
+S. syndactylus	chr14_hap1
+G. gorilla	chr4_pat_hsa17x5

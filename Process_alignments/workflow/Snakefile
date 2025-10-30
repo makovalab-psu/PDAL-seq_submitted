@@ -1,0 +1,36 @@
+import pandas as pd
+
+Hsapien_chr = pd.read_csv("resources/chr_sizes/Hsapien.chrom.sizes", sep='\t', header=None)[0].tolist()
+SPECIES = ["Hsapien", "Ptroglodytes", "Ppaniscus", "Ggorilla", "Ppygmaeus", "Pabelii", "Ssyndactylus"]
+MAF = ["8-t2t-apes-2023v2.hs1"]
+CLASS = ["hominoidae", "hominidae", "homininae", "hominini"]
+
+rule all:
+    input:
+        #hominoidae
+        expand("data/16_Remove_sex_chromosome_blocks/hominoidae/{species}.bed", species = SPECIES),
+        expand("data/16_Remove_sex_chromosome_blocks/hominoidae/{species}.bed", species = SPECIES),
+        expand("data/check_alignment_stats/hominoidae/{species}.txt", species = SPECIES),
+        "data/check_block_lengths/hominoidae/all.png",
+        "data/check_block_lengths/hominoidae/Meadian_alignment_lengths_by_species.txt",
+        #hominidae
+        expand("data/16_Remove_sex_chromosome_blocks/hominidae/{species}.bed", species = SPECIES),
+        expand("data/16_Remove_sex_chromosome_blocks/hominidae/{species}.bed", species = SPECIES),
+        expand("data/check_alignment_stats/hominidae/{species}.txt", species = SPECIES),
+        "data/check_block_lengths/hominidae/all.png",
+        "data/check_block_lengths/hominidae/Meadian_alignment_lengths_by_species.txt",
+        #homininae
+        expand("data/16_Remove_sex_chromosome_blocks/homininae/{species}.bed", species = SPECIES),
+        expand("data/16_Remove_sex_chromosome_blocks/homininae/{species}.bed", species = SPECIES),
+        expand("data/check_alignment_stats/homininae/{species}.txt", species = SPECIES),
+        "data/check_block_lengths/homininae/all.png",
+        "data/check_block_lengths/homininae/Meadian_alignment_lengths_by_species.txt",
+        #hominini
+        expand("data/16_Remove_sex_chromosome_blocks/hominini/{species}.bed", species = SPECIES),
+        expand("data/16_Remove_sex_chromosome_blocks/hominini/{species}.bed", species = SPECIES),
+        expand("data/check_alignment_stats/hominini/{species}.txt", species = SPECIES),
+        "data/check_block_lengths/hominini/all.png",
+        "data/check_block_lengths/hominini/Meadian_alignment_lengths_by_species.txt",
+        
+
+include: "rules/process_alignments.smk"
