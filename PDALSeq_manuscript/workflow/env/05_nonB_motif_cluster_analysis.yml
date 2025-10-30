@@ -1,0 +1,15 @@
+name: preprocess-env
+channels:
+  - conda-forge
+  - bioconda
+dependencies:
+  - sra-tools=3.2.0
+  - fastp=0.24.0
+  - bwa=0.7.18
+  - samtools=1.21
+  - bedtools=2.31.1
+  - ucsc-bedgraphtobigwig
+  - ucsc-fasize
+  - megadepth
+  - r-base
+  - r-tidyverse

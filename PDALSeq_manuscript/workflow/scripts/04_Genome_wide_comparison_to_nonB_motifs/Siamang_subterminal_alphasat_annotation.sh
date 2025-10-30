@@ -1,0 +1,1 @@
+grep "subTerm_mon/hor(SF4)" resources/repeats/linneas_annotations/mSymSyn1_v2.1_CenSat_v2.0.bed | awk '{print $1 "\t" $2 "\t" $3}'> results/04_Genome_wide_comparison_to_nonB_motifs/Ssyndactylus_subTerm_monhorSF4.bed

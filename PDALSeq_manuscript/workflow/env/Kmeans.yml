@@ -1,0 +1,8 @@
+name: Rutility-env
+channels:
+  - conda-forge
+dependencies:
+  - r-base=4.4.0
+  - r-tidyverse
+  - r-cluster
+  - r-mclust

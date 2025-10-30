@@ -1,0 +1,10 @@
+name: pyutility-env
+channels:
+  - conda-forge
+  - bioconda
+  - anaconda
+dependencies:
+  - python=3.9.21
+  - pandas=2.2.3
+  - numpy=2.0.2
+  - hmmlearn
