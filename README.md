@@ -1,9 +1,11 @@
 # PDAL-seq_submitted
 
+All code used in the manuscript is currently present. Working on cleaning up unused code and providing data/documentation/instructions for reproduction.  
+
 ## Contents
 
- alignment_filtering: A snakemake workflow for parsing 7-species CACTUS alignments into bed files specifying syntenic blocks between ape species with telomere-to-telomere genomes
- manuscript_analysis: A snakemake workflow containing code to reproduce the figures in the manuscript
+ Process_alignments: A snakemake workflow for parsing 7-species CACTUS alignments into bed files specifying syntenic blocks between ape species with telomere-to-telomere genomes
+ PDALSeq_manuscript: manuscript_analysis: A snakemake workflow containing code to reproduce the figures in the manuscript
 
 ## Alignment_filtering
 
@@ -13,4 +15,14 @@
 
 ### 3. Requirements
 
-### 4. Runing the workflow
+### 4. Running the workflow
+
+## PDALSeq_manuscript
+
+### 1. directory structure
+
+### 2. Set up instructions
+
+### 3. Requirements
+
+### 4. Running the workflow
