@@ -7,6 +7,8 @@ All code used in the manuscript is currently present. Working on cleaning up unu
  Process_alignments: A snakemake workflow for parsing 7-species CACTUS alignments into bed files specifying syntenic blocks between ape species with telomere-to-telomere genomes
  PDALSeq_manuscript: A snakemake workflow containing code to reproduce the figures/tables in the manuscript
 
+ PDALSeq_manuscript: A snakemake workflow for generating figures for the manuscript.
+
 ## Alignment_filtering
 
 ### 1. directory structure
