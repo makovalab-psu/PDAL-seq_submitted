@@ -1,10 +1,10 @@
 
 rule annotate_state_for_methylation:
     input:
-    	bed = "resources/alignments/hominoidae/{species}.bed",
-    	states = "data/07_PhyloHGMP_model/Multivariate_guassian_HMM/hominoidae/8/GHMM_states.csv"
+        bed = "resources/alignments/hominoidae/{species}.bed",
+        states = "data/07_PhyloHGMP_model/Multivariate_guassian_HMM/hominoidae/8/GHMM_states.csv"
     output:
-    	expand("data/10_Methylation_analysis/01_state_annotations/hominoidae/8/{{species}}/state_{state}.bed", state = ["0", "1", "2", "3", "4", "5", "6", "7"])
+        expand("data/10_Methylation_analysis/01_state_annotations/hominoidae/8/{{species}}/state_{state}.bed", state = ["0", "1", "2", "3", "4", "5", "6", "7"])
     conda:
         "../env/Rutility.yml"
     log:
@@ -16,10 +16,10 @@ rule annotate_state_for_methylation:
 
 rule methylation_in_ape_states:
     input:
-    	state = "data/10_Methylation_analysis/01_state_annotations/hominoidae/8/{species}/state_{state}.bed",
-    	m5C = "resources/methylationData/{species}.bed"
+        state = "data/10_Methylation_analysis/01_state_annotations/hominoidae/8/{species}/state_{state}.bed",
+        m5C = "resources/methylationData/{species}.bed"
     output:
-    	"data/10_Methylation_analysis/02_state_annotations/hominoidae/8/{species}/state_{state}.txt"
+        "data/10_Methylation_analysis/02_state_annotations/hominoidae/8/{species}/state_{state}.txt"
     conda:
         "../env/07_PhyloHGMP_model.yml"
     log:
@@ -31,9 +31,9 @@ rule methylation_in_ape_states:
         
 rule compile_methylation_enrichment_in_ape_state:
     input:
-    	expand("data/10_Methylation_analysis/02_state_annotations/hominoidae/8/{species}/state_{state}.txt", species = ["Hsapien", "Ptroglodytes", "Ppaniscus", "Ggorilla", "Ppygmaeus", "Pabelii"], state = ["0", "1", "2", "3", "4", "5", "6", "7"])
+        expand("data/10_Methylation_analysis/02_state_annotations/hominoidae/8/{species}/state_{state}.txt", species = ["Hsapien", "Ptroglodytes", "Ppaniscus", "Ggorilla", "Ppygmaeus", "Pabelii"], state = ["0", "1", "2", "3", "4", "5", "6", "7"])
     output:
-    	"results/10_Methylation_analysis/Methylation_by_state_and_species.csv"
+        "results/10_Methylation_analysis/Methylation_by_state_and_species.csv"
     conda:
         "../env/Rutility.yml"
     log:
@@ -46,11 +46,11 @@ rule compile_methylation_enrichment_in_ape_state:
 
 rule nonb_methylation_in_ape_states:
     input:
-    	state = "data/10_Methylation_analysis/01_state_annotations/hominoidae/8/{species}/state_{state}.bed",
-    	m5C = "resources/methylationData/{species}.bed",
-    	nonB = "data/05_nonB_motif_cluster_analysis/01_Add_nonB_name/{species}/{nonb}.bed"
+        state = "data/10_Methylation_analysis/01_state_annotations/hominoidae/8/{species}/state_{state}.bed",
+        m5C = "resources/methylationData/{species}.bed",
+        nonB = "data/05_nonB_motif_cluster_analysis/01_Add_nonB_name/{species}/{nonb}.bed"
     output:
-    	"data/10_Methylation_analysis/03_nonB_methylation_in_state/hominoidae/8/{species}/{nonb}/state_{state}.txt"
+        "data/10_Methylation_analysis/03_nonB_methylation_in_state/hominoidae/8/{species}/{nonb}/state_{state}.txt"
     conda:
         "../env/07_PhyloHGMP_model.yml"
     log:
@@ -62,9 +62,9 @@ rule nonb_methylation_in_ape_states:
 
 rule compile_nonB_methylation_in_ape_state:
     input:
-    	expand("data/10_Methylation_analysis/03_nonB_methylation_in_state/hominoidae/8/{species}/{nonb}/state_{state}.txt", species = ["Hsapien", "Ptroglodytes", "Ppaniscus", "Ggorilla", "Ppygmaeus", "Pabelii"], state = ["0", "1", "2", "3", "4", "5", "6", "7"], nonb = ["APR", "CRU", "DR", "GQ", "IR", "MR", "SLS", "STR", "TRI", "Z"])
+        expand("data/10_Methylation_analysis/03_nonB_methylation_in_state/hominoidae/8/{species}/{nonb}/state_{state}.txt", species = ["Hsapien", "Ptroglodytes", "Ppaniscus", "Ggorilla", "Ppygmaeus", "Pabelii"], state = ["0", "1", "2", "3", "4", "5", "6", "7"], nonb = ["APR", "CRU", "DR", "GQ", "IR", "MR", "SLS", "STR", "TRI", "Z"])
     output:
-    	"results/10_Methylation_analysis/Methylation_by_state_nonB_motif_and_species.csv"
+        "results/10_Methylation_analysis/Methylation_by_state_nonB_motif_and_species.csv"
     conda:
         "../env/Rutility.yml"
     log:

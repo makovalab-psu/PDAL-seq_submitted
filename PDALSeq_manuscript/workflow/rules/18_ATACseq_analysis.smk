@@ -20,8 +20,8 @@ rule ATACseq_trim_fastq:
 rule ATACseq_bwa_mem:
     input:
         expand("resources/genomes/Hsapien.fasta.{ifile}", ifile = ["amb", "ann", "pac", "bwt", "sa"]),
-	fasta = "resources/genomes/Hsapien.fasta",
-	R1 = "data/18_ATACseq_analysis/01_trim_fastq/{sra}_1.fastq.gz",
+        fasta = "resources/genomes/Hsapien.fasta",
+        R1 = "data/18_ATACseq_analysis/01_trim_fastq/{sra}_1.fastq.gz",
         R2 = "data/18_ATACseq_analysis/01_trim_fastq/{sra}_2.fastq.gz"
     output:
         temp("data/18_ATACseq_analysis/02_bwa_mem/{sra}.sam")
@@ -65,39 +65,39 @@ rule ATACseq_remove_dup:
         "samtools rmdup -s {input} {output} 2> {log}"
 
 rule ATACseq_bam_flags:
-	input:
-		"data/18_ATACseq_analysis/04_remove_dup/{sra}.bam"
-	output:
-		"data/18_ATACseq_analysis/05_bam_flags/{sra}.txt"
-	log:
-		"logs/18_ATACseq_analysis/05_bam_flags/{sra}.txt"
-	conda:
-		"../env/01_preprocess_data.yml"
-	resources:
-		mem_mb=1000
-	shell:
-		"bash workflow/scripts/02_preprocessing_statistics/bam_flags.sh {input} {output} 2> {log}"
+        input:
+                "data/18_ATACseq_analysis/04_remove_dup/{sra}.bam"
+        output:
+                "data/18_ATACseq_analysis/05_bam_flags/{sra}.txt"
+        log:
+                "logs/18_ATACseq_analysis/05_bam_flags/{sra}.txt"
+        conda:
+                "../env/01_preprocess_data.yml"
+        resources:
+                mem_mb=1000
+        shell:
+                "bash workflow/scripts/02_preprocessing_statistics/bam_flags.sh {input} {output} 2> {log}"
 
 rule ATACseq_bg:
-	input:
-		"data/18_ATACseq_analysis/04_remove_dup/{sra}.bam"
-	output:
-		"data/18_ATACseq_analysis/06_bedgraph/{sra}.bg"
-	log:
-		"logs/18_ATACseq_analysis/06_bedgraph/{sra}.txt"
-	conda:
-		"../env/01_preprocess_data.yml"
-	resources:
-		mem_mb=1000
-	shell:
-		"bedtools genomecov -ibam {input} -bg > {output} 2> {log}"
+        input:
+                "data/18_ATACseq_analysis/04_remove_dup/{sra}.bam"
+        output:
+                "data/18_ATACseq_analysis/06_bedgraph/{sra}.bg"
+        log:
+                "logs/18_ATACseq_analysis/06_bedgraph/{sra}.txt"
+        conda:
+                "../env/01_preprocess_data.yml"
+        resources:
+                mem_mb=1000
+        shell:
+                "bedtools genomecov -ibam {input} -bg > {output} 2> {log}"
 
 rule  ATACseq_in_state:
     input:
         state = "data/07_PhyloHGMP_model/Multivariate_guassian_HMM/hominoidae/8/state_{state}.bed",
-    	bg = "data/18_ATACseq_analysis/06_bedgraph/{sra}.bg"
+        bg = "data/18_ATACseq_analysis/06_bedgraph/{sra}.bg"
     output:
-    	"data/18_ATACseq_analysis/07_ape_state_ATACseq/state_{state}/{sra}.csv"
+        "data/18_ATACseq_analysis/07_ape_state_ATACseq/state_{state}/{sra}.csv"
     conda:
         "../env/07_PhyloHGMP_model.yml"
     log:
@@ -109,9 +109,9 @@ rule  ATACseq_in_state:
         
 rule compile_ATACseq_in_state:
     input:
-    	expand("data/18_ATACseq_analysis/07_ape_state_ATACseq/state_{state}/{sra}.csv", state = ["0", "1", "2", "3", "4", "5", "6", "7"], sra = ATAC_SRA)
+        expand("data/18_ATACseq_analysis/07_ape_state_ATACseq/state_{state}/{sra}.csv", state = ["0", "1", "2", "3", "4", "5", "6", "7"], sra = ATAC_SRA)
     output:
-    	"results/18_ATACseq_analysis/ATACseq_read_enrichment.csv"
+        "results/18_ATACseq_analysis/ATACseq_read_enrichment.csv"
     conda:
         "../env/Rutility.yml"
     log:

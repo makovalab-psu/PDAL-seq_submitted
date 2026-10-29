@@ -56,7 +56,7 @@ rule window_coverage:
     resources:
         mem_mb=1000
     shell:
-    	"bash workflow/scripts/04_Genome_wide_comparison_to_nonB_motifs/genome_window_coverage.sh {input.bam} {wildcards.size} {output} {wildcards.sample} 2> {log}"
+        "bash workflow/scripts/04_Genome_wide_comparison_to_nonB_motifs/genome_window_coverage.sh {input.bam} {wildcards.size} {output} {wildcards.sample} 2> {log}"
 
 #Compile data
 
@@ -70,11 +70,11 @@ rule compile_reads_vs_nonb:
     log:
         "logs/04_Genome_wide_comparison_to_nonB_motifs/05_compile_reads_vs_nonb.txt"
     conda:
-    	"../env/Rutility.yml"
+        "../env/Rutility.yml"
     resources:
         mem_mb=1000
     shell:
-    	"Rscript workflow/scripts/04_Genome_wide_comparison_to_nonB_motifs/compile_reads_vs_nonb.R 2> {log}"
+        "Rscript workflow/scripts/04_Genome_wide_comparison_to_nonB_motifs/compile_reads_vs_nonb.R 2> {log}"
 
 #Generate satallite annotations
 
@@ -88,7 +88,7 @@ rule hsat_2_3_annotation:
         "resources/repeats/linneas_annotations/mPonPyg2.pri.cur.20231122.RepeatMasker-combo.out",
         "resources/repeats/linneas_annotations/mSymSyn1.pri.cur.20231205.RepeatMasker-combo.out"
     output:
-    	expand("results/04_Genome_wide_comparison_to_nonB_motifs/hsat_2_3_annotations/{species}.bed", species = SPECIES)
+        expand("results/04_Genome_wide_comparison_to_nonB_motifs/hsat_2_3_annotations/{species}.bed", species = SPECIES)
     log:
         "logs/04_Genome_wide_comparison_to_nonB_motifs/06_hsat_2_3_annotations.txt"
     conda:
@@ -96,13 +96,13 @@ rule hsat_2_3_annotation:
     resources:
         mem_mb=1000
     shell:
-    	"bash workflow/scripts/04_Genome_wide_comparison_to_nonB_motifs/hsat_2_3_annotation.sh 2> {log}"
+        "bash workflow/scripts/04_Genome_wide_comparison_to_nonB_motifs/hsat_2_3_annotation.sh 2> {log}"
 
 rule siamang_subterminal_alphasat_annotation:
     input:
         "resources/repeats/linneas_annotations/mSymSyn1_v2.1_CenSat_v2.0.bed"
     output:
-    	"results/04_Genome_wide_comparison_to_nonB_motifs/Ssyndactylus_subTerm_monhorSF4.bed"
+        "results/04_Genome_wide_comparison_to_nonB_motifs/Ssyndactylus_subTerm_monhorSF4.bed"
     log:
         "logs/04_Genome_wide_comparison_to_nonB_motifs/07_Ssyndactylus_subTerm_mon.txt"
     conda:

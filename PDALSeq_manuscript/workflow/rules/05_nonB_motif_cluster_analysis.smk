@@ -133,7 +133,7 @@ rule nonb_cluster_coverage:
     resources:
         mem_mb=5000
     shell:
-    	"bash workflow/scripts/05_nonB_motif_cluster_analysis/nonb_cluster_coverage.sh {input.bam} 200 {output} {wildcards.sample} 2> {log}"
+        "bash workflow/scripts/05_nonB_motif_cluster_analysis/nonb_cluster_coverage.sh {input.bam} 200 {output} {wildcards.sample} 2> {log}"
 
 rule cluster_GC_content:
     input:
@@ -148,7 +148,7 @@ rule cluster_GC_content:
     resources:
         mem_mb=1000
     shell:
-    	"bash workflow/scripts/05_nonB_motif_cluster_analysis/bed_to_GC.sh {input.bed} {input.fasta} {output} 2> {log}"
+        "bash workflow/scripts/05_nonB_motif_cluster_analysis/bed_to_GC.sh {input.bed} {input.fasta} {output} 2> {log}"
 
 rule cluster_nonb_coverage:
     input:
@@ -161,7 +161,7 @@ rule cluster_nonb_coverage:
     conda:
         "../env/05_nonB_motif_cluster_analysis.yml"
     shell:
-         "bedtools coverage -a {input.window} -b {input.nonb} > {output} 2> {log}"	
+         "bedtools coverage -a {input.window} -b {input.nonb} > {output} 2> {log}"
 
 rule compile_nonb_cluster_coverage:
     input:
@@ -178,7 +178,7 @@ rule compile_nonb_cluster_coverage:
     resources:
         mem_mb=20000
     shell:
-    	"Rscript workflow/scripts/05_nonB_motif_cluster_analysis/compile_nonb_cluster_coverage.R {wildcards.sample} {output} 2> {log}"
+        "Rscript workflow/scripts/05_nonB_motif_cluster_analysis/compile_nonb_cluster_coverage.R {wildcards.sample} {output} 2> {log}"
 
 rule cluster_global_regression_analysis:
     input:
@@ -192,8 +192,8 @@ rule cluster_global_regression_analysis:
     resources:
         mem_mb=50000
     shell:
-    	"Rscript workflow/scripts/05_nonB_motif_cluster_analysis/Global_regression_analysis_of_nonB_DNA_motif_clusters.R {input} {output} 2> {log}"
-    	
+        "Rscript workflow/scripts/05_nonB_motif_cluster_analysis/Global_regression_analysis_of_nonB_DNA_motif_clusters.R {input} {output} 2> {log}"
+
 
 rule compile_gobal_regression_analysis:
     input:
@@ -207,7 +207,7 @@ rule compile_gobal_regression_analysis:
     resources:
         mem_mb=50000
     shell:
-    	"Rscript workflow/scripts/05_nonB_motif_cluster_analysis/Compile_global_models.R {output} 2> {log}"
+        "Rscript workflow/scripts/05_nonB_motif_cluster_analysis/Compile_global_models.R {output} 2> {log}"
 
 rule cluster_individual_regression_analysis:
     input:
@@ -222,8 +222,8 @@ rule cluster_individual_regression_analysis:
         mem_mb=50000
     shell:
         "Rscript workflow/scripts/05_nonB_motif_cluster_analysis/Individual_regression_analysis_of_nonB_DNA_motif_clusters.R {input} {output} 2> {log}"
-    	
-    	
+
+
 rule compile_individual_regression_analysis:
     input:
         expand("data/05_nonB_motif_cluster_analysis/12_individual_regression_analysis/{experiment}.csv", experiment = DATA)
@@ -251,7 +251,7 @@ rule log10_linear_regression_analysis:
         mem_mb=50000
     shell:
         "Rscript workflow/scripts/05_nonB_motif_cluster_analysis/log10_Linear_regression_analysis_of_nonB_DNA_motif_clusters.R {wildcards.experiment} {output} 2> {log}"
-  	
+
 rule compile_log10_linear_regression_analysis:
     input:
         expand("results/05_nonB_motif_cluster_analysis/log10_linear_models/{experiment}.csv", experiment = DATA)
@@ -278,8 +278,8 @@ rule glm_linear_regression_analysis:
     resources:
         mem_mb=50000
     shell:
-    	"Rscript workflow/scripts/05_nonB_motif_cluster_analysis/general_inear_regression_analysis_of_nonB_DNA_motif_clusters.R {wildcards.experiment} {output} 2> {log}"
-    	
+        "Rscript workflow/scripts/05_nonB_motif_cluster_analysis/general_inear_regression_analysis_of_nonB_DNA_motif_clusters.R {wildcards.experiment} {output} 2> {log}"
+
 rule compile_glm_linear_regression_analysis:
     input:
         expand("results/05_nonB_motif_cluster_analysis/glm_linear_models/{experiment}.csv", experiment = DATA)

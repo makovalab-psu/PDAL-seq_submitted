@@ -41,7 +41,7 @@ rule get_rm_annotation:
         "../env/03_Correlation_and_black_list_unmappable_regions.yml"
     shell:
         "bash workflow/scripts/07_PhyloHGMP_model/bed_generate.sh {input} {wildcards.rm_class} > {output} 2> {log}"
-	    
+
 rule human_state_rm_enrichment:
     input:
         state = "data/09_Human_HMM/04_Multivariate_guassian/10/{state}.bed",
@@ -68,7 +68,7 @@ rule compile_human_state_rm_enrichment:
         mem_mb=1000
     shell:
         "Rscript workflow/scripts/12_PDALseq_reads_human_functional_analysis/Compile_human_state_rm_enrichment.R {output} 2> {log}"
-	    
+
 rule human_state_rm_intersect_bp:
     input:
         state = "data/09_Human_HMM/04_Multivariate_guassian/10/{state}.bed",
@@ -80,8 +80,8 @@ rule human_state_rm_intersect_bp:
     conda:
         "../env/03_Correlation_and_black_list_unmappable_regions.yml"
     shell:
-        "bash workflow/scripts//12_PDALseq_reads_human_functional_analysis/Intersect.sh {input.state} {input.ann} {output} 2> {log}"	    
-	    
+        "bash workflow/scripts//12_PDALseq_reads_human_functional_analysis/Intersect.sh {input.state} {input.ann} {output} 2> {log}"
+
 rule compile_human_state_rm_intersect_bp:
     input:
         expand("data/12_PDALseq/human_state_rm_intersect_bp/{rm_class}/{state}.bed", state = ["state_0", "state_1", "state_2", "state_3", "state_4", "state_5", "state_6", "state_7", "state_8", "state_9"], rm_class = RM_CLASS)

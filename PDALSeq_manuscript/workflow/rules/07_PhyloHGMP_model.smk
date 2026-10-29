@@ -15,7 +15,7 @@ rule alignment_coverage:
     resources:
         mem_mb=20000
     shell:
-    	"bash workflow/scripts/07_PhyloHGMP_model/alignment_coverage.sh {input.bam} {wildcards.taxon} {output} {wildcards.sample} 2> {log}"
+        "bash workflow/scripts/07_PhyloHGMP_model/alignment_coverage.sh {input.bam} {wildcards.taxon} {output} {wildcards.sample} 2> {log}"
 
 
 rule Normalize_alignment_coverage:
@@ -64,38 +64,38 @@ rule filter_reads_by_alignment:
     resources:
         mem_mb=1000
     shell:
-    	"bash workflow/scripts/07_PhyloHGMP_model/filter_reads_by_alignment.sh {input.bam} {output.outside} {output.inside} {wildcards.sample} {wildcards.taxon} 2> {log}"
+        "bash workflow/scripts/07_PhyloHGMP_model/filter_reads_by_alignment.sh {input.bam} {output.outside} {output.inside} {wildcards.sample} {wildcards.taxon} 2> {log}"
 
 rule estimate_unique_in_alignment:
-	input:
-		"data/07_PhyloHGMP_model/03_filter_reads_by_alignment/{taxon}/{alignment}/{sample}.bam"
-	output:
-		"data/07_PhyloHGMP_model/04_estimate_unique_maps_in_alignment/{taxon}/{alignment}/{sample}.txt"
-	log:
-		"logs/07_PhyloHGMP_model/04_estimate_unique_maps_in_alignment/{taxon}/{alignment}/{sample}/{sample}.txt"
-	conda:
-		"../env/07_PhyloHGMP_model.yml"
-	resources:
-		mem_mb=1000
-	shell:
-		"bash workflow/scripts/02_preprocessing_statistics/Estimate_unique_maps.sh {input} > {output} 2> {log}"
+        input:
+                "data/07_PhyloHGMP_model/03_filter_reads_by_alignment/{taxon}/{alignment}/{sample}.bam"
+        output:
+                "data/07_PhyloHGMP_model/04_estimate_unique_maps_in_alignment/{taxon}/{alignment}/{sample}.txt"
+        log:
+                "logs/07_PhyloHGMP_model/04_estimate_unique_maps_in_alignment/{taxon}/{alignment}/{sample}/{sample}.txt"
+        conda:
+                "../env/07_PhyloHGMP_model.yml"
+        resources:
+                mem_mb=1000
+        shell:
+                "bash workflow/scripts/02_preprocessing_statistics/Estimate_unique_maps.sh {input} > {output} 2> {log}"
 
 ALIGNMENT = ["inside_alignment", "outside_alignment"]
 
 rule compile_unique_map_estimation_in_alignment:
-	input:
-		expand("data/07_PhyloHGMP_model/04_estimate_unique_maps_in_alignment/{{taxon}}/{alignment}/{sample}.txt", alignment = ALIGNMENT, sample = DATA)
-	output:
-		"data/07_PhyloHGMP_model/05_Unique_maps_inside_and_outside_alignment/{taxon}/Unique_maps_inside_and_outside_alignment.csv"
-	log:
-		"logs/07_PhyloHGMP_model/05_Unique_maps_inside_and_outside_alignment/{taxon}.txt"
-	conda:
-		"../env/Rutility.yml"
-	resources:
-		mem_mb=1000
-	shell:
-		"Rscript workflow/scripts/07_PhyloHGMP_model/compile_unique_map_estimation.R {wildcards.taxon} {output} 2> {log}"
-		
+        input:
+                expand("data/07_PhyloHGMP_model/04_estimate_unique_maps_in_alignment/{{taxon}}/{alignment}/{sample}.txt", alignment = ALIGNMENT, sample = DATA)
+        output:
+                "data/07_PhyloHGMP_model/05_Unique_maps_inside_and_outside_alignment/{taxon}/Unique_maps_inside_and_outside_alignment.csv"
+        log:
+                "logs/07_PhyloHGMP_model/05_Unique_maps_inside_and_outside_alignment/{taxon}.txt"
+        conda:
+                "../env/Rutility.yml"
+        resources:
+                mem_mb=1000
+        shell:
+                "Rscript workflow/scripts/07_PhyloHGMP_model/compile_unique_map_estimation.R {wildcards.taxon} {output} 2> {log}"
+
 ####Preliminary analysis####
 
 rule alignment_correllation:
@@ -272,7 +272,7 @@ rule mean_PDALseq_in_states:
     resources:
         mem_mb=5000
     shell:
-    	"Rscript workflow/scripts/07_PhyloHGMP_model/Mean_PDALseq_signal_in_states.R {input} {output} 2> {log}"      
+        "Rscript workflow/scripts/07_PhyloHGMP_model/Mean_PDALseq_signal_in_states.R {input} {output} 2> {log}"
 
 rule plot_HMM_vs_real_means:
     input:
@@ -287,8 +287,8 @@ rule plot_HMM_vs_real_means:
     resources:
         mem_mb=10000
     shell:
-    	"Rscript workflow/scripts/07_PhyloHGMP_model/Compare_GHMM_model_to_means.R {input.PDALseq} {input.Model} {output} 2> {log}"
-    	
+        "Rscript workflow/scripts/07_PhyloHGMP_model/Compare_GHMM_model_to_means.R {input.PDALseq} {input.Model} {output} 2> {log}"
+
 rule plot_to_test_Guassian:
     input:
         PDALseq = "data/07_PhyloHGMP_model/Multivariate_guassian_HMM/{taxon}/{states}/GHMM_states.csv",
@@ -303,7 +303,7 @@ rule plot_to_test_Guassian:
     resources:
         mem_mb=10000
     shell:
-    	"Rscript workflow/scripts/07_PhyloHGMP_model/plot_to_test_Guassian.R {input.PDALseq} {input.Mean} {input.Var} {output} 2> {log}"
+        "Rscript workflow/scripts/07_PhyloHGMP_model/plot_to_test_Guassian.R {input.PDALseq} {input.Mean} {input.Var} {output} 2> {log}"
 
 rule PDALseq_conservation_in_states:
     input:
@@ -319,16 +319,16 @@ rule PDALseq_conservation_in_states:
     resources:
         mem_mb=5000
     shell:
-    	"Rscript workflow/scripts/07_PhyloHGMP_model/Conservation_score.R {input} {output.mean} {output.individual} {output.plot} 2> {log}"    
+        "Rscript workflow/scripts/07_PhyloHGMP_model/Conservation_score.R {input} {output.mean} {output.individual} {output.plot} 2> {log}"
 
 ####Determine the functional significance of HMM states####
 
 rule annotate_state:
     input:
-    	bed = "resources/alignments/hominoidae/Hsapien.bed",
-    	states = "data/07_PhyloHGMP_model/Multivariate_guassian_HMM/hominoidae/8/GHMM_states.csv"
+        bed = "resources/alignments/hominoidae/Hsapien.bed",
+        states = "data/07_PhyloHGMP_model/Multivariate_guassian_HMM/hominoidae/8/GHMM_states.csv"
     output:
-    	expand("data/07_PhyloHGMP_model/Multivariate_guassian_HMM/hominoidae/8/state_{state}.bed", state = ["0", "1", "2", "3", "4", "5", "6", "7"])
+        expand("data/07_PhyloHGMP_model/Multivariate_guassian_HMM/hominoidae/8/state_{state}.bed", state = ["0", "1", "2", "3", "4", "5", "6", "7"])
     conda:
         "../env/Rutility.yml"
     log:
@@ -358,10 +358,10 @@ rule Count_BP_in_state:
      
 rule nonB_enrichment_in_state:
     input:
-    	state = "data/07_PhyloHGMP_model/Multivariate_guassian_HMM/hominoidae/8/state_{state}.bed",
-    	nonB = "results/04_Genome_wide_comparison_to_nonB_motifs/nonb_annotations/Hsapien/{nonb}.bed"
+        state = "data/07_PhyloHGMP_model/Multivariate_guassian_HMM/hominoidae/8/state_{state}.bed",
+        nonB = "results/04_Genome_wide_comparison_to_nonB_motifs/nonb_annotations/Hsapien/{nonb}.bed"
     output:
-    	"data/07_PhyloHGMP_model/Multivariate_guassian_HMM/hominoidae/8/State_nonB_enrichment/state_{state}/{nonb}_enrichment.bed"
+        "data/07_PhyloHGMP_model/Multivariate_guassian_HMM/hominoidae/8/State_nonB_enrichment/state_{state}/{nonb}_enrichment.bed"
     conda:
         "../env/07_PhyloHGMP_model.yml"
     log:
@@ -373,9 +373,9 @@ rule nonB_enrichment_in_state:
 
 rule compile_nonB_enrichment_in_state:
     input:
-    	expand("data/07_PhyloHGMP_model/Multivariate_guassian_HMM/hominoidae/8/State_nonB_enrichment/state_{state}/{nonb}_enrichment.bed", state = ["0", "1", "2", "3", "4", "5", "6", "7"], nonb = ["APR", "CRU", "DR", "GQ", "IR", "MR", "SLS", "STR", "TRI", "Z"])
+        expand("data/07_PhyloHGMP_model/Multivariate_guassian_HMM/hominoidae/8/State_nonB_enrichment/state_{state}/{nonb}_enrichment.bed", state = ["0", "1", "2", "3", "4", "5", "6", "7"], nonb = ["APR", "CRU", "DR", "GQ", "IR", "MR", "SLS", "STR", "TRI", "Z"])
     output:
-    	"data/07_PhyloHGMP_model/Multivariate_guassian_HMM/hominoidae/8/State_nonB_enrichment/hsapiens.csv"
+        "data/07_PhyloHGMP_model/Multivariate_guassian_HMM/hominoidae/8/State_nonB_enrichment/hsapiens.csv"
     conda:
         "../env/Rutility.yml"
     log:
@@ -389,9 +389,9 @@ rule compile_nonB_enrichment_in_state:
 
 rule annotate_recombination_elements:
     input:
-    	"resources/functional_annotations/Refseq/genomic_ucsc_names.gff"
+        "resources/functional_annotations/Refseq/genomic_ucsc_names.gff"
     output:
-    	"resources/functional_annotations/Saswats_annotations/Hsapien/Recombination.bed"
+        "resources/functional_annotations/Saswats_annotations/Hsapien/Recombination.bed"
     conda:
         "../env/07_PhyloHGMP_model.yml"
     log:
@@ -403,10 +403,10 @@ rule annotate_recombination_elements:
 
 rule functional_element_enrichment_in_state:
     input:
-    	state = "data/07_PhyloHGMP_model/Multivariate_guassian_HMM/hominoidae/8/state_{state}.bed",
-    	functional_element = "resources/functional_annotations/Saswats_annotations/Hsapien/{ann}.bed"
+        state = "data/07_PhyloHGMP_model/Multivariate_guassian_HMM/hominoidae/8/state_{state}.bed",
+        functional_element = "resources/functional_annotations/Saswats_annotations/Hsapien/{ann}.bed"
     output:
-    	"data/07_PhyloHGMP_model/Multivariate_guassian_HMM/hominoidae/8/State_functional_element_enrichment/state_{state}/{ann}_enrichment.bed"
+        "data/07_PhyloHGMP_model/Multivariate_guassian_HMM/hominoidae/8/State_functional_element_enrichment/state_{state}/{ann}_enrichment.bed"
     conda:
         "../env/07_PhyloHGMP_model.yml"
     log:
@@ -418,9 +418,9 @@ rule functional_element_enrichment_in_state:
      
 rule compile_functional_element_enrichment_in_state:
     input:
-    	expand("data/07_PhyloHGMP_model/Multivariate_guassian_HMM/hominoidae/8/State_functional_element_enrichment/state_{state}/{ann}_enrichment.bed", state = ["0", "1", "2", "3", "4", "5", "6", "7"], ann = ANNOTATIONS)
+        expand("data/07_PhyloHGMP_model/Multivariate_guassian_HMM/hominoidae/8/State_functional_element_enrichment/state_{state}/{ann}_enrichment.bed", state = ["0", "1", "2", "3", "4", "5", "6", "7"], ann = ANNOTATIONS)
     output:
-    	"data/07_PhyloHGMP_model/Multivariate_guassian_HMM/hominoidae/8/State_functional_element_enrichment/hsapiens.csv"
+        "data/07_PhyloHGMP_model/Multivariate_guassian_HMM/hominoidae/8/State_functional_element_enrichment/hsapiens.csv"
     conda:
         "../env/Rutility.yml"
     log:
@@ -448,10 +448,10 @@ rule subset_ref_seq:
 
 rule ref_seq_functional_element_enrichment:
     input:
-    	state = "data/07_PhyloHGMP_model/Multivariate_guassian_HMM/hominoidae/8/state_{state}.bed",
-    	functional_element = "resources/functional_annotations/Refseq/{ann}.bed"
+        state = "data/07_PhyloHGMP_model/Multivariate_guassian_HMM/hominoidae/8/state_{state}.bed",
+        functional_element = "resources/functional_annotations/Refseq/{ann}.bed"
     output:
-    	"data/07_PhyloHGMP_model/Multivariate_guassian_HMM/hominoidae/8/State_functional_refseq_enrichment/state_{state}/{ann}_enrichment.bed"
+        "data/07_PhyloHGMP_model/Multivariate_guassian_HMM/hominoidae/8/State_functional_refseq_enrichment/state_{state}/{ann}_enrichment.bed"
     conda:
         "../env/07_PhyloHGMP_model.yml"
     log:
@@ -463,9 +463,9 @@ rule ref_seq_functional_element_enrichment:
 
 rule compile_Refseq_element_enrichment_in_state:
     input:
-    	expand("data/07_PhyloHGMP_model/Multivariate_guassian_HMM/hominoidae/8/State_functional_refseq_enrichment/state_{state}/{ann}_enrichment.bed", state = ["0", "1", "2", "3", "4", "5", "6", "7"], ann = ["meiotic_recombination_region", "mitotic_recombination_region", "non_allelic_homologous_recombination_region", "recombination_feature"])
+        expand("data/07_PhyloHGMP_model/Multivariate_guassian_HMM/hominoidae/8/State_functional_refseq_enrichment/state_{state}/{ann}_enrichment.bed", state = ["0", "1", "2", "3", "4", "5", "6", "7"], ann = ["meiotic_recombination_region", "mitotic_recombination_region", "non_allelic_homologous_recombination_region", "recombination_feature"])
     output:
-    	"data/07_PhyloHGMP_model/alignment_clustering/hominoidae/8/State_functional_refseq_enrichment/hsapiens.csv"
+        "data/07_PhyloHGMP_model/alignment_clustering/hominoidae/8/State_functional_refseq_enrichment/hsapiens.csv"
     conda:
         "../env/Rutility.yml"
     log:
@@ -479,10 +479,10 @@ rule compile_Refseq_element_enrichment_in_state:
 
 rule methylation_in_state:
     input:
-    	state = "data/07_PhyloHGMP_model/Multivariate_guassian_HMM/hominoidae/8/state_{state}.bed",
-    	m5C = "resources/methylationData/Hsapien.bed"
+        state = "data/07_PhyloHGMP_model/Multivariate_guassian_HMM/hominoidae/8/state_{state}.bed",
+        m5C = "resources/methylationData/Hsapien.bed"
     output:
-    	"data/07_PhyloHGMP_model/Multivariate_guassian_HMM/hominoidae/8/methylation/state_{state}.txt"
+        "data/07_PhyloHGMP_model/Multivariate_guassian_HMM/hominoidae/8/methylation/state_{state}.txt"
     conda:
         "../env/07_PhyloHGMP_model.yml"
     log:
@@ -494,9 +494,9 @@ rule methylation_in_state:
         
 rule compile_methylation_enrichment_in_state:
     input:
-    	expand("data/07_PhyloHGMP_model/Multivariate_guassian_HMM/hominoidae/8/methylation/state_{state}.txt", state = ["0", "1", "2", "3", "4", "5", "6", "7"])
+        expand("data/07_PhyloHGMP_model/Multivariate_guassian_HMM/hominoidae/8/methylation/state_{state}.txt", state = ["0", "1", "2", "3", "4", "5", "6", "7"])
     output:
-    	"data/07_PhyloHGMP_model/Multivariate_guassian_HMM/hominoidae/8/methylation/hsapiens.csv"
+        "data/07_PhyloHGMP_model/Multivariate_guassian_HMM/hominoidae/8/methylation/hsapiens.csv"
     conda:
         "../env/Rutility.yml"
     log:
@@ -511,9 +511,9 @@ rule compile_methylation_enrichment_in_state:
 rule  RNA_expression_in_state:
     input:
         state = "data/07_PhyloHGMP_model/Multivariate_guassian_HMM/hominoidae/8/state_{state}.bed",
-    	RNA = "resources/expression/RNAseq_default.bg"
+        RNA = "resources/expression/RNAseq_default.bg"
     output:
-    	"data/07_PhyloHGMP_model/Multivariate_guassian_HMM/hominoidae/8/State_RNA_expression/state_{state}.txt"
+        "data/07_PhyloHGMP_model/Multivariate_guassian_HMM/hominoidae/8/State_RNA_expression/state_{state}.txt"
     conda:
         "../env/07_PhyloHGMP_model.yml"
     log:
@@ -525,9 +525,9 @@ rule  RNA_expression_in_state:
         
 rule compile_RNA_expression_in_state:
     input:
-    	expand("data/07_PhyloHGMP_model/Multivariate_guassian_HMM/hominoidae/8/State_RNA_expression/state_{state}.txt", state = ["0", "1", "2", "3", "4", "5", "6", "7"])
+        expand("data/07_PhyloHGMP_model/Multivariate_guassian_HMM/hominoidae/8/State_RNA_expression/state_{state}.txt", state = ["0", "1", "2", "3", "4", "5", "6", "7"])
     output:
-    	"data/07_PhyloHGMP_model/Multivariate_guassian_HMM/hominoidae/8/State_RNA_expression/hsapiens.csv"
+        "data/07_PhyloHGMP_model/Multivariate_guassian_HMM/hominoidae/8/State_RNA_expression/hsapiens.csv"
     conda:
         "../env/Rutility.yml"
     log:
