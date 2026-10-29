@@ -1,0 +1,33 @@
+cff-version: 1.2.0
+message: "If you use this code, please cite the article below."
+title: "PDAL-Seq analysis code"
+repository-code: "https://github.com/makovalab-psu/PDAL-seq_submitted"
+license: MIT
+authors:
+  - family-names: Sieg
+    given-names: Jacob
+  - family-names: Makova
+    given-names: Kateryna D.
+preferred-citation:
+  type: article
+  title: "Single-stranded and non-canonical DNA formation in human and other ape cells with telomere-to-telomere genomes"
+  journal: "Proceedings of the National Academy of Sciences"
+  year: 2026
+  # doi: TODO
+  authors:
+    - family-names: Sieg
+      given-names: Jacob
+    - family-names: Zeng
+      given-names: Huiqing
+    - family-names: Pálová
+      given-names: Hana
+    - family-names: Smeds
+      given-names: Linnéa
+    - family-names: Mohanty
+      given-names: Saswat
+    - family-names: Lahnsteiner
+      given-names: Angelika
+    - family-names: Chiaromonte
+      given-names: Francesca
+    - family-names: Makova
+      given-names: Kateryna D.
