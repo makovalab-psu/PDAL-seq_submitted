@@ -1,0 +1,6 @@
+name: liftover
+channels:
+  - bioconda
+  - conda-forge
+dependencies:
+  - ucsc-liftover

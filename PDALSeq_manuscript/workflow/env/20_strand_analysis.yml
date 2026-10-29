@@ -1,0 +1,8 @@
+name: strand-analysis-env
+channels:
+  - conda-forge
+  - bioconda
+dependencies:
+  - deeptools=3.5.6
+  - samtools=1.21
+  - bedtools=2.31.1

@@ -195,7 +195,7 @@ P.ann.E = ggplot(df.ann, aes(x = ann, y = State, fill = log2Enrichment, label = 
 
 df.RNA = read.csv("data/07_PhyloHGMP_model/Multivariate_guassian_HMM/hominoidae/8/State_RNA_expression/hsapiens.csv")
 df.RNA$State = factor(df.RNA$State, levels = State.levels)
-df.RNA$State = factor(df.RNA$State, levels = State.levels)
+
 P.RNA = ggplot(df.RNA, aes(y = State, x = Enrichment)) +
 	geom_bar(stat = "identity") +
 	theme_classic() +
@@ -210,6 +210,29 @@ P.RNA = ggplot(df.RNA, aes(y = State, x = Enrichment)) +
 	ggtitle("Transcription") +
 	xlab("RNA-Seq reads\nenrichment") +
 	geom_vline(xintercept = 1) 
+
+####Make a plot that shows ATAC-Seq enrichment in each state####
+
+df.ATAC = read.csv("results/18_ATACseq_analysis/ATACseq_read_enrichment.csv")
+df.ATAC$State = factor(df.ATAC$State, levels = State.levels)
+
+P.ATAC = ggplot(df.ATAC, aes(y = State, x = Enrichment)) +
+	geom_bar(stat = "summary", fun = mean, fill = "grey") +
+	stat_summary(fun.data = mean_sd, geom = "errorbar", color = "black") +
+	geom_vline(xintercept = 1) +
+	geom_point(mapping = aes(color = Bio_sample, shape = Bio_sample)) + 
+	theme_classic() +
+	scale_color_manual(values = c("dimgrey", "black")) +
+	theme(axis.text.x = element_text(angle = 90, size = 6, color = "black"),
+	      axis.title.x = element_text(size = 8, color = "black"),
+	      legend.position = "top",
+	      legend.title = element_text(size = 8, color = "black"),
+	      axis.title.y =  element_blank(),
+	      axis.text.y =  element_blank(),
+	      plot.title =  element_text(size = 8, color = "black"),
+	      plot.margin = margin(t = 0, r = 0, b = 0, l = 0, unit = "pt")) +
+	ggtitle("ATAC-Seq") +
+	xlab("ATAC-Seq reads\nenrichment")  
 
 ####Plot hmm-States Genome wide#### 
 
@@ -293,7 +316,7 @@ P.percent = ggplot(df.state.percent , aes(x = chr, y = Percent, fill = hidden_st
 
 ####Compile plots####
 
-P.A = plot_grid(P.count, P.tile, P.con, P.nonB.E, P.ann.E, P.RNA, align = "h", nrow = 1, rel_widths = c(3,6,1.6,5.2,9.2,3), labels = c("A"), label_size = 12) 
+P.A = plot_grid(P.count, P.tile, P.con, P.nonB.E, P.ann.E, P.RNA, P.ATAC, align = "h", nrow = 1, rel_widths = c(3,6,1.6,5.2,9.2,3,3), labels = c("A"), label_size = 12) 
 P.A
 P.AB = plot_grid(P.A, P.percent, ncol = 1, rel_heights = c(2, 1),  labels = c("","B"), label_size = 12) 
 

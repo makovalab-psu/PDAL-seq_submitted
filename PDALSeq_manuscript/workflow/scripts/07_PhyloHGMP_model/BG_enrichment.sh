@@ -4,23 +4,26 @@ output_file=$3
 Subsamples=$4
 Simulations=$5
 
-echo "Observed,Null" > $3
+temp_file="${output_file}_$$.temp"
+shuffled_file="${output_file}_$$.shuffled"
+
+echo "Observed,Null" > "${output_file}"
 
 # Loop to run the process as many times as specified
-for i in $(seq 1 $5)
+for i in $(seq 1 "${Simulations}")
 do
 	# Randomly select lines
-	shuf -n $Subsamples $2 > $3.temp
+	shuf -n "${Subsamples}" "${annotation_bed}" > "${temp_file}"
 	# Calculate Observed overlap
-	Observed=$(bedtools intersect -a $3.temp -b $1 | awk '{sum += $4; n++} END {print sum;}')
+	Observed=$(bedtools intersect -a "${temp_file}" -b "${state_bed}" | awk '{sum += $4; n++} END {print sum;}')
 	# Shuffle the BED file
-	bedtools shuffle -i $3.temp -g resources/genomes/Hsapien.chrom.sizes -chrom > $3.shuffled
+	bedtools shuffle -i "${temp_file}" -g resources/genomes/Hsapien.chrom.sizes -chrom > "${shuffled_file}"
 	# Calculate Null overlap
-	Null=$(bedtools intersect -a $3.shuffled -b $1 | awk '{sum += $4; n++} END {print sum;}')
+	Null=$(bedtools intersect -a "${shuffled_file}" -b "${state_bed}" | awk '{sum += $4; n++} END {print sum;}')
 	# Save the results to the output file
-	echo "$Observed,$Null" >> $3
+	echo "$Observed,$Null" >> "${output_file}"
 done
 
-rm $3.temp
-rm $3.shuffled
+rm "${temp_file}"
+rm "${shuffled_file}"
 
