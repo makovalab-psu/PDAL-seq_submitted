@@ -2,7 +2,7 @@
 # Step 24 — HMM Browser Tracks
 #
 # Combines the 8 per-state BED files from the hominoidae 8-state
-# Phylo-HMGP model into a single BED9 browser track with state names
+# multivariate Gaussian HMM (hmmlearn) into a single BED9 browser track with state names
 # and itemRgb colors for IGV and the UCSC Genome Browser.
 #
 # Input BEDs are treated as ancient() so step 07 is never re-triggered.
