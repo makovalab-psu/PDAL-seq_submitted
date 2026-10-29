@@ -28,17 +28,17 @@ rule all:
         # 03 Correlation and black list unmappable regions
         #"results/03_Correlation_and_black_list_unmappable_regions/Technical_replicate_correlation.csv",
         #expand("results/03_Correlation_and_black_list_unmappable_regions/blacklist_files/{species}.bed", species = SPECIES),
-	#"results/03_Correlation_and_black_list_unmappable_regions/Unique_maps_inside_and_outside_blacklist.csv",
+        #"results/03_Correlation_and_black_list_unmappable_regions/Unique_maps_inside_and_outside_blacklist.csv",
         # 04 Genome wide comparison to nonB motifs
-	#expand("results/04_Genome_wide_comparison_to_nonB_motifs/nonb_annotations/{species}/{nonb}.bed", species = SPECIES, nonb = NONB),
-	#"results/04_Genome_wide_comparison_to_nonB_motifs/nonB_correlation_coeficient.csv",
+        #expand("results/04_Genome_wide_comparison_to_nonB_motifs/nonb_annotations/{species}/{nonb}.bed", species = SPECIES, nonb = NONB),
+        #"results/04_Genome_wide_comparison_to_nonB_motifs/nonB_correlation_coeficient.csv",
         #"results/04_Genome_wide_comparison_to_nonB_motifs/nonB_coverage_versus_read.csv",
         #expand("results/04_Genome_wide_comparison_to_nonB_motifs/hsat_2_3_annotations/{species}.bed", species = SPECIES),
         #"results/04_Genome_wide_comparison_to_nonB_motifs/Ssyndactylus_subTerm_monhorSF4.bed",
         # 05 nonB motif cluster analysis
         #"results/05_nonB_motif_cluster_analysis/individual_models.csv",
         #"results/05_nonB_motif_cluster_analysis/global_models.csv",
-	#"results/05_nonB_motif_cluster_analysis/Cluster_count_vs_cluster_size.txt",
+        #"results/05_nonB_motif_cluster_analysis/Cluster_count_vs_cluster_size.txt",
         #"results/05_nonB_motif_cluster_analysis/Filtered_cluster_count_vs_cluster_size.txt",
         #"results/05_nonB_motif_cluster_analysis/nonb_cluster_coverage.csv",
         #"results/05_nonB_motif_cluster_analysis/linear_models.csv",
@@ -72,39 +72,39 @@ rule all:
         #12 PDAL-seq around TSS
         #"results/12_TSS_analysis_analysis/PDALseq_signal_around_TSS.csv",
        #Methylation analysis
-	#"results/10_Methylation_analysis/Methylation_by_state_and_species.csv",
-	#14_Repeat_masker_class_enrichment
-	#"results/14_Repeat_masker_class_enrichment/03_RM_damily_enrichment.csv",
-	#16 lm_analysis_of_nonbmotifs
-	#"results/16_lm_analysis_of_nonbmotifs/Genome_wide_glm_individual_parameters.csv",
-	#"results/16_lm_analysis_of_nonbmotifs/Genome_wide_glm.csv",
-	#"results/16_lm_analysis_of_nonbmotifs/glm_unique_regions_1000_nucleotides_individual_parameters.csv",
-	#"results/16_lm_analysis_of_nonbmotifs/glm_unique_regions_1000_nucleotides.csv",
-	#17_PDALseq_reads_in_CenSat
-	#"results/17_PDALseq_reads_in_CenSat/Censat_class_enrichment.csv",
-	#"results/17_PDALseq_reads_in_CenSat/Censat_nonB_intersect.txt",
-	#"results/17_PDALseq_reads_in_CenSat/Censat_subclass_enrichment.txt",
-	#"results/17_PDALseq_reads_in_CenSat/Censat_subclass_nonB_intersect.txt",
-	#"results/17_PDALseq_reads_in_CenSat/SST1_SATR1_SATR2_LSAU_enrichment.csv",
-	#"results/17_PDALseq_reads_in_CenSat/08_Altemose_paper_censat_enrichment_classes.csv",
-	#18 ATACseq_analysis
-	#expand("data/18_ATACseq_analysis/05_bam_flags/{sra}.txt", sra = ATAC_SRA),
-	#"results/18_ATACseq_analysis/ATACseq_read_enrichment.csv",
-	#19 PDAL-Seq signal in and out of syntenic regions
-	"results/19_PDAL_Seq_signal_in_and_out_of_syntenic_regions/PDAL_Seq_signal_in_and_out_of_syntenic_regions.csv",
-	#20 Strand-specific coverage around non-B DNA motifs
-	#"results/20_Strand_specific_analysis/Strand_specific_coverage.csv",
-	#21 Add K562 cell line — technical replicate correlation
-	"results/21_add_K562_to_analysis/Technical_replicate_correlation.csv",
-	#21 Add K562 cell line — phase 2 K562-augmented downstream CSVs
-	"results/21_add_K562_to_analysis/nonB_correlation_coefficient.csv",
-	"results/21_add_K562_to_analysis/nonB_coverage_versus_read.csv",
-	"results/21_add_K562_to_analysis/glm_unique_regions_1000_nucleotides.csv",
-	"results/21_add_K562_to_analysis/PDALseq_signal_around_origins.csv",
-	"results/21_add_K562_to_analysis/PDALseq_signal_around_TSS.csv",
-	"results/21_add_K562_to_analysis/Read_enrichment.csv",
+        #"results/10_Methylation_analysis/Methylation_by_state_and_species.csv",
+        #14_Repeat_masker_class_enrichment
+        #"results/14_Repeat_masker_class_enrichment/03_RM_damily_enrichment.csv",
+        #16 lm_analysis_of_nonbmotifs
+        #"results/16_lm_analysis_of_nonbmotifs/Genome_wide_glm_individual_parameters.csv",
+        #"results/16_lm_analysis_of_nonbmotifs/Genome_wide_glm.csv",
+        #"results/16_lm_analysis_of_nonbmotifs/glm_unique_regions_1000_nucleotides_individual_parameters.csv",
+        #"results/16_lm_analysis_of_nonbmotifs/glm_unique_regions_1000_nucleotides.csv",
+        #17_PDALseq_reads_in_CenSat
+        #"results/17_PDALseq_reads_in_CenSat/Censat_class_enrichment.csv",
+        #"results/17_PDALseq_reads_in_CenSat/Censat_nonB_intersect.txt",
+        #"results/17_PDALseq_reads_in_CenSat/Censat_subclass_enrichment.txt",
+        #"results/17_PDALseq_reads_in_CenSat/Censat_subclass_nonB_intersect.txt",
+        #"results/17_PDALseq_reads_in_CenSat/SST1_SATR1_SATR2_LSAU_enrichment.csv",
+        #"results/17_PDALseq_reads_in_CenSat/08_Altemose_paper_censat_enrichment_classes.csv",
+        #18 ATACseq_analysis
+        #expand("data/18_ATACseq_analysis/05_bam_flags/{sra}.txt", sra = ATAC_SRA),
+        #"results/18_ATACseq_analysis/ATACseq_read_enrichment.csv",
+        #19 PDAL-Seq signal in and out of syntenic regions
+        "results/19_PDAL_Seq_signal_in_and_out_of_syntenic_regions/PDAL_Seq_signal_in_and_out_of_syntenic_regions.csv",
+        #20 Strand-specific coverage around non-B DNA motifs
+        #"results/20_Strand_specific_analysis/Strand_specific_coverage.csv",
+        #21 Add K562 cell line — technical replicate correlation
+        "results/21_add_K562_to_analysis/Technical_replicate_correlation.csv",
+        #21 Add K562 cell line — phase 2 K562-augmented downstream CSVs
+        "results/21_add_K562_to_analysis/nonB_correlation_coefficient.csv",
+        "results/21_add_K562_to_analysis/nonB_coverage_versus_read.csv",
+        "results/21_add_K562_to_analysis/glm_unique_regions_1000_nucleotides.csv",
+        "results/21_add_K562_to_analysis/PDALseq_signal_around_origins.csv",
+        "results/21_add_K562_to_analysis/PDALseq_signal_around_TSS.csv",
+        "results/21_add_K562_to_analysis/Read_enrichment.csv",
         #22 alternative origins
-	"results/22_Alternative_origins/PDALseq_signal_around_alternative_origins.csv",
+        "results/22_Alternative_origins/PDALseq_signal_around_alternative_origins.csv",
         #24 HMM Browser tracks
         "results/24_HMM_Browser_tracks/hominoidae/hsapien.bed",
         #25 S-phase contribution
@@ -152,28 +152,30 @@ rule all:
         "data/27_Updated_Human_HMM_functional_analysis/Human_state_rm_intersect_bp.csv",
         "results/27_Updated_Human_HMM_functional_analysis/RM_family_enrichment.csv",
         "data/27_Updated_Human_HMM_functional_analysis/intersect_results.csv",
+        #31 UCSC track hubs (one per ape T2T genome)
+        expand("results/31_UCSC_track_hubs/{species}/hub.txt", species = SPECIES),
         #Tables
-	#"tables/Table_S1_preprocessing_statistics.csv",
-	#"tables/Table_S2_preprocessing_statistics_by_sample.csv",
-	#"tables/Table_S3_Unique_maps_inside_and_outside_blacklist.csv",
-	#"tables/Table_S4_Linear_model_parameters_and_test_for_multicolinearity.csv",
-	#"tables/Table_S7_Unique_maps_inside_alignment.csv",
-	#"tables/Table_SX_Mcfaddens_R2_glm_for_reads_vs_nonB_1Mbp_windows.csv",
-	#Plots
-	#"plots/Figure_2_Genome_wide_plots/Figure_2.svg",
-	#"plots/Figure_3_Phylogenetic_PDALseq/Figure_3.svg",
-	#"plots/Figure_4_human_HMM_PDALseq/Figure_4.svg",
-	#"plots/Figure_S1_technical_replicate_correlation/Figure_S1.svg",
-	#expand("plots/Figure_S2_Genome_wide_plots/{species}.svg", species = SPECIES),
-	#expand("plots/Figure_S3_Genome_wide_correlation_plots/{data}.png", data = DATA),
-	#"plots/Figure_S4_Siamang_subterm_alpha_sat/Figure_S4.svg",
-	#"plots/Figure_S5_CHIP_CutRun_Benchmarking/Figure_S5.svg",
-	#"plots/Figure_S6_Number_of_non-B_DNA_cluster_motifs_versus_clustering_distance/Figure_S6.svg",
-	#"plots/Figure_S7_linear_model_analysis_of_nonB_motif_clusters/Figure_S7.svg",
-	#"plots/Figure_S8_PDALseq_PCA_different_taxon/Figure_S8.svg",
-	#"plots/Figure_S9_Scree_plots_different_taxon/Figure_S9.svg",
-	#"plots/Figure_S10_Scree_plots_explanation/Figure_S10.svg",
-	#"plots/Figure_S11_HMM_transition_probabilities/Figure_S11.svg"
+        #"tables/Table_S1_preprocessing_statistics.csv",
+        #"tables/Table_S2_preprocessing_statistics_by_sample.csv",
+        #"tables/Table_S3_Unique_maps_inside_and_outside_blacklist.csv",
+        #"tables/Table_S4_Linear_model_parameters_and_test_for_multicolinearity.csv",
+        #"tables/Table_S7_Unique_maps_inside_alignment.csv",
+        #"tables/Table_SX_Mcfaddens_R2_glm_for_reads_vs_nonB_1Mbp_windows.csv",
+        #Plots
+        #"plots/Figure_2_Genome_wide_plots/Figure_2.svg",
+        #"plots/Figure_3_Phylogenetic_PDALseq/Figure_3.svg",
+        #"plots/Figure_4_human_HMM_PDALseq/Figure_4.svg",
+        #"plots/Figure_S1_technical_replicate_correlation/Figure_S1.svg",
+        #expand("plots/Figure_S2_Genome_wide_plots/{species}.svg", species = SPECIES),
+        #expand("plots/Figure_S3_Genome_wide_correlation_plots/{data}.png", data = DATA),
+        #"plots/Figure_S4_Siamang_subterm_alpha_sat/Figure_S4.svg",
+        #"plots/Figure_S5_CHIP_CutRun_Benchmarking/Figure_S5.svg",
+        #"plots/Figure_S6_Number_of_non-B_DNA_cluster_motifs_versus_clustering_distance/Figure_S6.svg",
+        #"plots/Figure_S7_linear_model_analysis_of_nonB_motif_clusters/Figure_S7.svg",
+        #"plots/Figure_S8_PDALseq_PCA_different_taxon/Figure_S8.svg",
+        #"plots/Figure_S9_Scree_plots_different_taxon/Figure_S9.svg",
+        #"plots/Figure_S10_Scree_plots_explanation/Figure_S10.svg",
+        #"plots/Figure_S11_HMM_transition_probabilities/Figure_S11.svg"
 
 #The rules to complete each step in the workflow are found here
 #include: "rules/01_preprocess_data.smk"
@@ -204,5 +206,6 @@ include: "rules/27_Updated_Human_HMM_functional_analysis.smk"
 include: "rules/28_Fibroblast_specific_HMM.smk"
 include: "rules/29_Lymphoblast_specific_HMM.smk"
 include: "rules/30_update_SI_tables_with_revisions_data.smk"
+include: "rules/31_UCSC_track_hubs.smk"
 #include: "rules/Figures_Tables.smk"
 
