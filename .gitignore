@@ -1,0 +1,42 @@
+# OS / editor
+.DS_Store
+*~
+.*.sw?
+# R
+.Rhistory
+.RData
+.Rproj.user/
+# Python builds
+__pycache__/
+*.pyc
+*.so
+*.o
+build/
+dist/
+*.egg
+*.egg-info/
+# Snakemake outputs
+.snakemake/
+logs/
+PDALSeq_manuscript/data/
+PDALSeq_manuscript/results/
+# Large sequencing files
+*.bam
+*.bai
+*.cram
+*.bw
+*.bigWig
+*.bb
+*.bg
+*.fa
+*.fa.gz
+*.fasta
+*.fastq.gz
+*.fq.gz
+*.hal
+# Personal / review material
+sync.sh
+push_code.sh
+CLAUDE.md
+Rebuttal*.pdf
+EOF

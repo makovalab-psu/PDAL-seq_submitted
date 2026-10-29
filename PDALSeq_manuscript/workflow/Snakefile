@@ -15,28 +15,29 @@ TAXON = ["hominoidae", "hominidae", "homininae", "hominini"]
 ANNOTATIONS = ["cds_protCode_singleTrans", "ngnr_protCode_singleTrans", "chrG_cpgislands","promoter_protCode_singleTrans", "enhancer_protCode_singleTrans", "repeats_protCode_singleTrans", "exon_protCode_singleTrans", "rna_protCode_singleTrans", "gene_nonprotCode", "utr3_protCode_singleTrans", "gene_protCode_singleTrans", "utr5_protCode_singleTrans", "intron_protCode_singleTrans", "Recombination", "core_stochastic_origins_chm13v2.0_hglft.ucsc", "core_origins_hglft_genome_e0596_1cc9e0", "stochastic_origins_hglft_genome_2ff9ed_1ccfd0"]
 df_benchmark = pd.read_csv("resources/Epigenetic_datasets/BG4_Rloop_CHIP_CutTag_experiments.txt", sep='\t')
 BENCHMARKS = df_benchmark['Run']
+ATAC_SRA = ["SRR13051064", "SRR13051019", "SRR13051041", "SRR13051198", "SRR13051203", "SRR13051201"]
 
 # The final products for the pipeline are specified here
 rule all:
     input:
         # 01 Preprocessing
-        expand("data/01_preprocess_data/{mapq}/{data}.bam", mapq=MAPQ, data=DATA),
+        #expand("data/01_preprocess_data/{mapq}/{data}.bam", mapq=MAPQ, data=DATA),
         # 02 Preprocessing statistics
-        "results/02_preprocessing_statistics/Bam_flags_by_technical_replicate.csv",
-        "results/02_preprocessing_statistics/Mapping_statistics_by_biological_sample.csv",
+        #"results/02_preprocessing_statistics/Bam_flags_by_technical_replicate.csv",
+        #"results/02_preprocessing_statistics/Mapping_statistics_by_biological_sample.csv",
         # 03 Correlation and black list unmappable regions
-        "results/03_Correlation_and_black_list_unmappable_regions/Technical_replicate_correlation.csv",
-        expand("results/03_Correlation_and_black_list_unmappable_regions/blacklist_files/{species}.bed", species = SPECIES),
+        #"results/03_Correlation_and_black_list_unmappable_regions/Technical_replicate_correlation.csv",
+        #expand("results/03_Correlation_and_black_list_unmappable_regions/blacklist_files/{species}.bed", species = SPECIES),
 	#"results/03_Correlation_and_black_list_unmappable_regions/Unique_maps_inside_and_outside_blacklist.csv",
         # 04 Genome wide comparison to nonB motifs
-	expand("results/04_Genome_wide_comparison_to_nonB_motifs/nonb_annotations/{species}/{nonb}.bed", species = SPECIES, nonb = NONB),
-	"results/04_Genome_wide_comparison_to_nonB_motifs/nonB_correlation_coeficient.csv",
-        "results/04_Genome_wide_comparison_to_nonB_motifs/nonB_coverage_versus_read.csv",
-        expand("results/04_Genome_wide_comparison_to_nonB_motifs/hsat_2_3_annotations/{species}.bed", species = SPECIES),
-        "results/04_Genome_wide_comparison_to_nonB_motifs/Ssyndactylus_subTerm_monhorSF4.bed",
+	#expand("results/04_Genome_wide_comparison_to_nonB_motifs/nonb_annotations/{species}/{nonb}.bed", species = SPECIES, nonb = NONB),
+	#"results/04_Genome_wide_comparison_to_nonB_motifs/nonB_correlation_coeficient.csv",
+        #"results/04_Genome_wide_comparison_to_nonB_motifs/nonB_coverage_versus_read.csv",
+        #expand("results/04_Genome_wide_comparison_to_nonB_motifs/hsat_2_3_annotations/{species}.bed", species = SPECIES),
+        #"results/04_Genome_wide_comparison_to_nonB_motifs/Ssyndactylus_subTerm_monhorSF4.bed",
         # 05 nonB motif cluster analysis
-        "results/05_nonB_motif_cluster_analysis/individual_models.csv",
-        "results/05_nonB_motif_cluster_analysis/global_models.csv",
+        #"results/05_nonB_motif_cluster_analysis/individual_models.csv",
+        #"results/05_nonB_motif_cluster_analysis/global_models.csv",
 	#"results/05_nonB_motif_cluster_analysis/Cluster_count_vs_cluster_size.txt",
         #"results/05_nonB_motif_cluster_analysis/Filtered_cluster_count_vs_cluster_size.txt",
         #"results/05_nonB_motif_cluster_analysis/nonb_cluster_coverage.csv",
@@ -45,35 +46,35 @@ rule all:
         # 06 Reference free repeat analysis
         "results/06_reference_free_repeat_analysis/Short_tandem_repeats_by_technical_replicate.csv",
         #07_PhyloHGMP_model
-        expand("data/07_PhyloHGMP_model/02_Normalize_alignment_coverage/{taxon}/{sample}.csv", sample = DATA, taxon = TAXON),
-        expand("data/07_PhyloHGMP_model/05_Unique_maps_inside_and_outside_alignment/{taxon}/Unique_maps_inside_and_outside_alignment.csv", taxon = TAXON),
-        "data/07_PhyloHGMP_model/Multivariate_guassian_HMM/hominoidae/8/Transition_probabilities.csv",
+        #expand("data/07_PhyloHGMP_model/02_Normalize_alignment_coverage/{taxon}/{sample}.csv", sample = DATA, taxon = TAXON),
+        #expand("data/07_PhyloHGMP_model/05_Unique_maps_inside_and_outside_alignment/{taxon}/Unique_maps_inside_and_outside_alignment.csv", taxon = TAXON),
+        #"data/07_PhyloHGMP_model/Multivariate_guassian_HMM/hominoidae/8/Transition_probabilities.csv",
         #08 CHIP CutRun Benchmarking
-        expand("data/08_CHIP_CutRun_Benchmarking/06_genome_window_coverage/1000000_nucleotides/{sra}.bg", sra = BENCHMARKS),
+        #expand("data/08_CHIP_CutRun_Benchmarking/06_genome_window_coverage/1000000_nucleotides/{sra}.bg", sra = BENCHMARKS),
         #09 Human HMM
-        "data/09_Human_HMM/03_Human_Kmeans_scree/Kmeans_scree_plot.svg",
-        expand("data/09_Human_HMM/04_Multivariate_guassian/{states}/plot_HMM_vs_real_means.png", states = ["2","4","6","8","9","10","12","14","16", "18","20"]),
-        expand("data/09_Human_HMM/04_Multivariate_guassian/{states}/plot_to_test_Guassian.pdf", states = ["2","4","6","8","9","10","12","14","16", "18","20"]),
-        "data/09_Human_HMM/04_Multivariate_guassian/BIC_plot.png",
-        "data/09_Human_HMM/04_Multivariate_guassian/10/BP_in_state.csv",
-        "data/09_Human_HMM/04_Multivariate_guassian/10/State_nonB_enrichment/hsapiens.csv",
-        "data/09_Human_HMM/04_Multivariate_guassian/10/State_functional_element_enrichment/hsapiens.csv",
-        "data/09_Human_HMM/04_Multivariate_guassian/10/methylation/hsapiens.csv",
-        "data/09_Human_HMM/04_Multivariate_guassian/10/State_RNA_expression/hsapiens.csv",
-        "data/09_Human_HMM/04_Multivariate_guassian/10/State_functional_refseq_enrichment/hsapiens.csv",
+        #"data/09_Human_HMM/03_Human_Kmeans_scree/Kmeans_scree_plot.svg",
+        #expand("data/09_Human_HMM/04_Multivariate_guassian/{states}/plot_HMM_vs_real_means.png", states = ["2","4","6","8","9","10","12","14","16", "18","20"]),
+        #expand("data/09_Human_HMM/04_Multivariate_guassian/{states}/plot_to_test_Guassian.pdf", states = ["2","4","6","8","9","10","12","14","16", "18","20"]),
+        #"data/09_Human_HMM/04_Multivariate_guassian/BIC_plot.png",
+        #"data/09_Human_HMM/04_Multivariate_guassian/10/BP_in_state.csv",
+        #"data/09_Human_HMM/04_Multivariate_guassian/10/State_nonB_enrichment/hsapiens.csv",
+        #"data/09_Human_HMM/04_Multivariate_guassian/10/State_functional_element_enrichment/hsapiens.csv",
+        #"data/09_Human_HMM/04_Multivariate_guassian/10/methylation/hsapiens.csv",
+        #"data/09_Human_HMM/04_Multivariate_guassian/10/State_RNA_expression/hsapiens.csv",
+        #"data/09_Human_HMM/04_Multivariate_guassian/10/State_functional_refseq_enrichment/hsapiens.csv",
         #11
-        "results/11_Origin_analysis_analysis/PDALseq_signal_around_origins.csv",
+        #"results/11_Origin_analysis_analysis/PDALseq_signal_around_origins.csv",
         #12 Human reads in functional annotations
-        "data/12_PDALseq/Read_enrichment.csv",
-        "data/12_PDALseq/Human_state_rm_enrichment.csv",
-        "data/12_PDALseq/Human_state_rm_intersect_bp.csv",
-        "data/12_PDALseq/baseline_human_state_rm_intersect_bp.csv",
+        #"data/12_PDALseq/Read_enrichment.csv",
+        #"data/12_PDALseq/Human_state_rm_enrichment.csv",
+        #"data/12_PDALseq/Human_state_rm_intersect_bp.csv",
+        #"data/12_PDALseq/baseline_human_state_rm_intersect_bp.csv",
         #12 PDAL-seq around TSS
-        "results/12_TSS_analysis_analysis/PDALseq_signal_around_TSS.csv",
+        #"results/12_TSS_analysis_analysis/PDALseq_signal_around_TSS.csv",
        #Methylation analysis
 	#"results/10_Methylation_analysis/Methylation_by_state_and_species.csv",
 	#14_Repeat_masker_class_enrichment
-	"results/14_Repeat_masker_class_enrichment/03_RM_damily_enrichment.csv",
+	#"results/14_Repeat_masker_class_enrichment/03_RM_damily_enrichment.csv",
 	#16 lm_analysis_of_nonbmotifs
 	#"results/16_lm_analysis_of_nonbmotifs/Genome_wide_glm_individual_parameters.csv",
 	#"results/16_lm_analysis_of_nonbmotifs/Genome_wide_glm.csv",
@@ -82,49 +83,126 @@ rule all:
 	#17_PDALseq_reads_in_CenSat
 	#"results/17_PDALseq_reads_in_CenSat/Censat_class_enrichment.csv",
 	#"results/17_PDALseq_reads_in_CenSat/Censat_nonB_intersect.txt",
-	"results/17_PDALseq_reads_in_CenSat/Censat_subclass_enrichment.txt",
-	"results/17_PDALseq_reads_in_CenSat/Censat_subclass_nonB_intersect.txt",
-	"results/17_PDALseq_reads_in_CenSat/SST1_SATR1_SATR2_LSAU_enrichment.csv",
-	"results/17_PDALseq_reads_in_CenSat/08_Altemose_paper_censat_enrichment_classes.csv",
-	 #Tables
-	"tables/Table_S1_preprocessing_statistics.csv",
-	"tables/Table_S2_preprocessing_statistics_by_sample.csv",
-	"tables/Table_S3_Unique_maps_inside_and_outside_blacklist.csv",
+	#"results/17_PDALseq_reads_in_CenSat/Censat_subclass_enrichment.txt",
+	#"results/17_PDALseq_reads_in_CenSat/Censat_subclass_nonB_intersect.txt",
+	#"results/17_PDALseq_reads_in_CenSat/SST1_SATR1_SATR2_LSAU_enrichment.csv",
+	#"results/17_PDALseq_reads_in_CenSat/08_Altemose_paper_censat_enrichment_classes.csv",
+	#18 ATACseq_analysis
+	#expand("data/18_ATACseq_analysis/05_bam_flags/{sra}.txt", sra = ATAC_SRA),
+	#"results/18_ATACseq_analysis/ATACseq_read_enrichment.csv",
+	#19 PDAL-Seq signal in and out of syntenic regions
+	"results/19_PDAL_Seq_signal_in_and_out_of_syntenic_regions/PDAL_Seq_signal_in_and_out_of_syntenic_regions.csv",
+	#20 Strand-specific coverage around non-B DNA motifs
+	#"results/20_Strand_specific_analysis/Strand_specific_coverage.csv",
+	#21 Add K562 cell line — technical replicate correlation
+	"results/21_add_K562_to_analysis/Technical_replicate_correlation.csv",
+	#21 Add K562 cell line — phase 2 K562-augmented downstream CSVs
+	"results/21_add_K562_to_analysis/nonB_correlation_coefficient.csv",
+	"results/21_add_K562_to_analysis/nonB_coverage_versus_read.csv",
+	"results/21_add_K562_to_analysis/glm_unique_regions_1000_nucleotides.csv",
+	"results/21_add_K562_to_analysis/PDALseq_signal_around_origins.csv",
+	"results/21_add_K562_to_analysis/PDALseq_signal_around_TSS.csv",
+	"results/21_add_K562_to_analysis/Read_enrichment.csv",
+        #22 alternative origins
+	"results/22_Alternative_origins/PDALseq_signal_around_alternative_origins.csv",
+        #24 HMM Browser tracks
+        "results/24_HMM_Browser_tracks/hominoidae/hsapien.bed",
+        #25 S-phase contribution
+        "results/25_Sphase_contribution/Technical_replicate_correlation.csv",
+        "results/25_Sphase_contribution/Sphase_1kb_coverage.csv",
+        "results/25_Sphase_contribution/GM24143/Sphase_increases_ssDNA_windows.bed",
+        "results/25_Sphase_contribution/GM24143/G0_G1_arrest_increases_ssDNA_windows.bed",
+        "results/25_Sphase_contribution/GM24385/Sphase_increases_ssDNA_windows.bed",
+        "results/25_Sphase_contribution/GM24385/G0_G1_arrest_increases_ssDNA_windows.bed",
+        "results/25_Sphase_contribution/Cell_cycle_effects_on_PDALSeq_1kbp_windows.csv",
+        #25 S-phase HMM enrichment
+        "data/25_Sphase_contribution/Multivariate_guassian_HMM/hominoidae/8/State_functional_element_enrichment/Sphase_enrichment.csv",
+        #25 S-phase HMM bp coverage
+        "data/25_Sphase_contribution/Multivariate_guassian_HMM/hominoidae/8/State_functional_element_enrichment/Sphase_HMM_coverage.csv",
+        #25 S-phase non-B / functional element enrichment & coverage
+        "results/25_Sphase_contribution/Sphase_nonb_func_enrichment.csv",
+        "results/25_Sphase_contribution/Sphase_nonb_func_coverage.csv",
+        #26 Ape PCA and Human HMM with K562
+        "results/26_Ape_PCA_and_Human_HMM_with_K562/hominoidae/PDALseq_PCA_in_alignment.csv",
+        "results/26_Ape_PCA_and_Human_HMM_with_K562/Kmeans_scree_data.csv",
+        "results/26_Ape_PCA_and_Human_HMM_with_K562/Human_GHMM_BIC_plot.svg",
+        #28 Fibroblast-specific HMM (Phase 1: state-number selection)
+        "data/28_Fibroblast_specific_HMM/PDALseq_PCA_in_alignment.csv",
+        "data/28_Fibroblast_specific_HMM/PDALseq_kmeans_scree_plot_in_alignment.csv",
+        "data/28_Fibroblast_specific_HMM/Multivariate_guassian_HMM/BIC_plot.svg",
+        #28 Fibroblast-specific HMM (Phase 2: 10-state functional annotation + SI figure)
+        "results/28_Fibroblast_specific_HMM/Figure_SI_Fibroblast_HMM.svg",
+        #29 Lymphoblast-specific HMM (Phase 1: state-number selection)
+        "data/29_Lymphoblast_specific_HMM/PDALseq_PCA_in_alignment.csv",
+        "data/29_Lymphoblast_specific_HMM/PDALseq_kmeans_scree_plot_in_alignment.csv",
+        "data/29_Lymphoblast_specific_HMM/Multivariate_guassian_HMM/BIC_plot.svg",
+        #29 Lymphoblast-specific HMM (Phase 2: 10-state functional annotation + SI figure)
+        "results/29_Lymphoblast_specific_HMM/Figure_SI_Lymphoblast_HMM.svg",
+        #30 SI table updates for K562 and DMSO revisions data
+        "results/30_update_SI_tables_with_revisions_data/Table_S1_new_samples.csv",
+        "results/30_update_SI_tables_with_revisions_data/Table_S2_new_samples.csv",
+        "results/30_update_SI_tables_with_revisions_data/Table_S3_new_samples.csv",
+        #27 Updated Human HMM functional analysis (K562-inclusive 10-state model)
+        "data/27_Updated_Human_HMM_functional_analysis/Average_PDALseq_in_GHMM_states.csv",
+        "data/27_Updated_Human_HMM_functional_analysis/BP_in_state.csv",
+        "data/27_Updated_Human_HMM_functional_analysis/State_nonB_enrichment/hsapiens.csv",
+        "data/27_Updated_Human_HMM_functional_analysis/State_functional_element_enrichment/hsapiens.csv",
+        "data/27_Updated_Human_HMM_functional_analysis/methylation/hsapiens.csv",
+        "data/27_Updated_Human_HMM_functional_analysis/State_RNA_expression/hsapiens.csv",
+        "data/27_Updated_Human_HMM_functional_analysis/Human_state_rm_intersect_bp.csv",
+        "results/27_Updated_Human_HMM_functional_analysis/RM_family_enrichment.csv",
+        "data/27_Updated_Human_HMM_functional_analysis/intersect_results.csv",
+        #Tables
+	#"tables/Table_S1_preprocessing_statistics.csv",
+	#"tables/Table_S2_preprocessing_statistics_by_sample.csv",
+	#"tables/Table_S3_Unique_maps_inside_and_outside_blacklist.csv",
 	#"tables/Table_S4_Linear_model_parameters_and_test_for_multicolinearity.csv",
-	"tables/Table_S7_Unique_maps_inside_alignment.csv",
-	"tables/Table_SX_Mcfaddens_R2_glm_for_reads_vs_nonB_1Mbp_windows.csv",
+	#"tables/Table_S7_Unique_maps_inside_alignment.csv",
+	#"tables/Table_SX_Mcfaddens_R2_glm_for_reads_vs_nonB_1Mbp_windows.csv",
 	#Plots
-	"plots/Figure_2_Genome_wide_plots/Figure_2.svg",
-	"plots/Figure_3_Phylogenetic_PDALseq/Figure_3.svg",
-	"plots/Figure_4_human_HMM_PDALseq/Figure_4.svg",
-	"plots/Figure_S1_technical_replicate_correlation/Figure_S1.svg",
-	expand("plots/Figure_S2_Genome_wide_plots/{species}.svg", species = SPECIES),
-	expand("plots/Figure_S3_Genome_wide_correlation_plots/{data}.png", data = DATA),
-	"plots/Figure_S4_Siamang_subterm_alpha_sat/Figure_S4.svg",
-	"plots/Figure_S5_CHIP_CutRun_Benchmarking/Figure_S5.svg",
+	#"plots/Figure_2_Genome_wide_plots/Figure_2.svg",
+	#"plots/Figure_3_Phylogenetic_PDALseq/Figure_3.svg",
+	#"plots/Figure_4_human_HMM_PDALseq/Figure_4.svg",
+	#"plots/Figure_S1_technical_replicate_correlation/Figure_S1.svg",
+	#expand("plots/Figure_S2_Genome_wide_plots/{species}.svg", species = SPECIES),
+	#expand("plots/Figure_S3_Genome_wide_correlation_plots/{data}.png", data = DATA),
+	#"plots/Figure_S4_Siamang_subterm_alpha_sat/Figure_S4.svg",
+	#"plots/Figure_S5_CHIP_CutRun_Benchmarking/Figure_S5.svg",
 	#"plots/Figure_S6_Number_of_non-B_DNA_cluster_motifs_versus_clustering_distance/Figure_S6.svg",
 	#"plots/Figure_S7_linear_model_analysis_of_nonB_motif_clusters/Figure_S7.svg",
-	"plots/Figure_S8_PDALseq_PCA_different_taxon/Figure_S8.svg",
+	#"plots/Figure_S8_PDALseq_PCA_different_taxon/Figure_S8.svg",
 	#"plots/Figure_S9_Scree_plots_different_taxon/Figure_S9.svg",
 	#"plots/Figure_S10_Scree_plots_explanation/Figure_S10.svg",
 	#"plots/Figure_S11_HMM_transition_probabilities/Figure_S11.svg"
 
 #The rules to complete each step in the workflow are found here
-include: "rules/01_preprocess_data.smk"
-include: "rules/02_preprocessing_statistics.smk"
-include: "rules/03_Correlation_and_black_list_unmappable_regions.smk"
-include: "rules/04_Genome_wide_comparison_to_nonB_motifs.smk"
-include: "rules/05_nonB_motif_cluster_analysis.smk"
-include: "rules/06_reference_free_repeat_analysis.smk"
-include: "rules/07_PhyloHGMP_model.smk"
-include: "rules/08_CHIP_CutRun_Benchmarking.smk"
-include: "rules/09_Human_HMM.smk"
-include: "rules/10_Methylation_analysis.smk"
-include: "rules/11_Origin_analysis_analysis.smk"
+#include: "rules/01_preprocess_data.smk"
+#include: "rules/02_preprocessing_statistics.smk"
+#include: "rules/03_Correlation_and_black_list_unmappable_regions.smk"
+#include: "rules/04_Genome_wide_comparison_to_nonB_motifs.smk"
+#include: "rules/05_nonB_motif_cluster_analysis.smk"
+#include: "rules/06_reference_free_repeat_analysis.smk"
+#include: "rules/07_PhyloHGMP_model.smk"
+#include: "rules/08_CHIP_CutRun_Benchmarking.smk"
+#include: "rules/09_Human_HMM.smk"
+#include: "rules/10_Methylation_analysis.smk"
+#include: "rules/11_Origin_analysis_analysis.smk"
 include: "rules/12_PDALseq_reads_human_functional_analysis.smk"
-include: "rules/12_TSS_analysis_analysis.smk"
+#include: "rules/12_TSS_analysis_analysis.smk"
 include: "rules/14_Repeat_masker_class_enrichment_in_states.smk"
-include: "rules/16_lm_analysis_of_nonbmotifs.smk"
-include: "rules/17_PDALseq_reads_in_CenSat.smk"
-include: "rules/Figures_Tables.smk"
+#include: "rules/16_lm_analysis_of_nonbmotifs.smk"
+#include: "rules/17_PDALseq_reads_in_CenSat.smk"
+#include: "rules/18_ATACseq_analysis.smk"
+include: "rules/19_PDAL_Seq_signal_in_and_out_of_syntenic_regions.smk"
+include: "rules/20_Strand_specific_analysis.smk"
+include: "rules/21_add_K562_to_analysis.smk"
+include: "rules/22_Alternative_origins.smk"
+include: "rules/24_HMM_Browser_tracks.smk"
+include: "rules/25_Sphase_contribution.smk"
+include: "rules/26_Ape_PCA_and_Human_HMM_with_K562.smk"
+include: "rules/27_Updated_Human_HMM_functional_analysis.smk"
+include: "rules/28_Fibroblast_specific_HMM.smk"
+include: "rules/29_Lymphoblast_specific_HMM.smk"
+include: "rules/30_update_SI_tables_with_revisions_data.smk"
+#include: "rules/Figures_Tables.smk"
 

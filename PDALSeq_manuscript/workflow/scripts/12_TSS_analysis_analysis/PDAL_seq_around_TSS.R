@@ -40,7 +40,7 @@ for (i in 1:nrow(df.bed)){
 } 
 
 Average_PDALseq = rowMeans(M, na.rm = T)/Read_sum
-SD_PDALseq = rowSds(M, na.rm = T)/Read_sumR
+SD_PDALseq = rowSds(M, na.rm = T)/Read_sum
 N = ncol(M)
 kb_range = -kb:kb
 df = data.frame(kb_range, Average_PDALseq, SD_PDALseq, N)

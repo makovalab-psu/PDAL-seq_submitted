@@ -1,4 +1,3 @@
-#rsync -av ./ jus841@makova-ont:/storage/jus841/PDALseq_manuscript/resources/alignments/
 
 #Remove alignments that come from hg38
 rule remove_hg38:
