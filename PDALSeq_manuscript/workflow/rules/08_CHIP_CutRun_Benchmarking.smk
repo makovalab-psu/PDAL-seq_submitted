@@ -20,8 +20,8 @@ rule benchmark_trim_fastq:
 rule benchmark_bwa_mem:
     input:
         expand("resources/genomes/Hsapien.fasta.{ifile}", ifile = ["amb", "ann", "pac", "bwt", "sa"]),
-	fasta = "resources/genomes/Hsapien.fasta",
-	R1 = "data/08_CHIP_CutRun_Benchmarking/01_trim_fastq/{sra}_1.fastq.gz",
+        fasta = "resources/genomes/Hsapien.fasta",
+        R1 = "data/08_CHIP_CutRun_Benchmarking/01_trim_fastq/{sra}_1.fastq.gz",
         R2 = "data/08_CHIP_CutRun_Benchmarking/01_trim_fastq/{sra}_2.fastq.gz"
     output:
         temp("data/08_CHIP_CutRun_Benchmarking/02_bwa_mem/{sra}.sam")
@@ -66,18 +66,18 @@ rule benchmark_remove_dup:
 
 
 rule benchmark_bam_flags:
-	input:
-		"data/08_CHIP_CutRun_Benchmarking/04_remove_dup/{sra}.bam"
-	output:
-		"data/08_CHIP_CutRun_Benchmarking/05_bam_flags/{sra}.txt"
-	log:
-		"logs/08_CHIP_CutRun_Benchmarking/05_bam_flags/{sra}..txt"
-	conda:
-		"../env/01_preprocess_data.yml"
-	resources:
-		mem_mb=1000
-	shell:
-		"bash workflow/scripts/02_preprocessing_statistics/bam_flags.sh {input} {output} 2> {log}"
+        input:
+                "data/08_CHIP_CutRun_Benchmarking/04_remove_dup/{sra}.bam"
+        output:
+                "data/08_CHIP_CutRun_Benchmarking/05_bam_flags/{sra}.txt"
+        log:
+                "logs/08_CHIP_CutRun_Benchmarking/05_bam_flags/{sra}..txt"
+        conda:
+                "../env/01_preprocess_data.yml"
+        resources:
+                mem_mb=1000
+        shell:
+                "bash workflow/scripts/02_preprocessing_statistics/bam_flags.sh {input} {output} 2> {log}"
 
 
 #Reads in windows
@@ -95,7 +95,7 @@ rule benchmark_window_coverage:
     resources:
         mem_mb=1000
     shell:
-    	"megadepth {input.bam} --threads 1 --annotation ./{input.bed} --op sum > {output} 2> {log}"
+        "megadepth {input.bam} --threads 1 --annotation ./{input.bed} --op sum > {output} 2> {log}"
 
 rule Compile_benchmark_window_coverage:
     input:
@@ -111,6 +111,6 @@ rule Compile_benchmark_window_coverage:
     resources:
         mem_mb=1000
     shell:
-    	"Rscript workflow/scripts/08_CHIP_CutRun_Benchmarking/Compile_benchmark_window_coverage.R {input.SRA} {output} 2> {log}"
+        "Rscript workflow/scripts/08_CHIP_CutRun_Benchmarking/Compile_benchmark_window_coverage.R {input.SRA} {output} 2> {log}"
 
 

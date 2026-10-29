@@ -15,10 +15,10 @@ rule get_rm_class:
         
 rule rm_family_enrichment_in_state:
     input:
-    	state = "data/09_Human_HMM/04_Multivariate_guassian/10/state_{state}.bed",
-    	functional_element = "data/14_Repeat_masker_class_enrichment/01_compile_annotations/{family}.bed"
+        state = "data/09_Human_HMM/04_Multivariate_guassian/10/state_{state}.bed",
+        functional_element = "data/14_Repeat_masker_class_enrichment/01_compile_annotations/{family}.bed"
     output:
-    	"data/14_Repeat_masker_class_enrichment/02_annotations_enrichment/state_{state}/{family}_enrichment.bed"
+        "data/14_Repeat_masker_class_enrichment/02_annotations_enrichment/state_{state}/{family}_enrichment.bed"
     conda:
         "../env/07_PhyloHGMP_model.yml"
     log:
@@ -31,9 +31,9 @@ rule rm_family_enrichment_in_state:
 
 rule compile_rm_family_enrichment_in_state:
     input:
-    	expand("data/14_Repeat_masker_class_enrichment/02_annotations_enrichment/state_{state}/{family}_enrichment.bed", state = ["0", "1", "2", "3", "4", "5", "6", "7","8","9"], family = RM_FAMILY)
+        expand("data/14_Repeat_masker_class_enrichment/02_annotations_enrichment/state_{state}/{family}_enrichment.bed", state = ["0", "1", "2", "3", "4", "5", "6", "7","8","9"], family = RM_FAMILY)
     output:
-    	"results/14_Repeat_masker_class_enrichment/03_RM_damily_enrichment.csv"
+        "results/14_Repeat_masker_class_enrichment/03_RM_damily_enrichment.csv"
     conda:
         "../env/Rutility.yml"
     log:

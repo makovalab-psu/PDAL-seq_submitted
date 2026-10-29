@@ -21,7 +21,7 @@ rule Catagorize_censat_by_class:
     resources:
         mem_mb=10000
     shell:
-    	"Rscript workflow/scripts/17_PDALseq_reads_in_CenSat/Catagorize_CenSat.R 2> {log}"
+        "Rscript workflow/scripts/17_PDALseq_reads_in_CenSat/Catagorize_CenSat.R 2> {log}"
 
 rule CenSat_read_enrichment:
     input:
@@ -90,7 +90,7 @@ rule Catagorize_censat_by_subclass:
     resources:
         mem_mb=10000
     shell:
-    	"Rscript workflow/scripts/17_PDALseq_reads_in_CenSat/Catagorize_CenSat_by_subclass.R 2> {log}"
+        "Rscript workflow/scripts/17_PDALseq_reads_in_CenSat/Catagorize_CenSat_by_subclass.R 2> {log}"
 
 rule CenSat_subclass_read_enrichment:
     input:
@@ -206,7 +206,7 @@ rule Catagorize_censat_by_Altemose_paper_class:
     resources:
         mem_mb=10000
     shell:
-    	"Rscript workflow/scripts/17_PDALseq_reads_in_CenSat/Catagorize_CenSat_by_Altemose_labels.R 2> {log}"
+        "Rscript workflow/scripts/17_PDALseq_reads_in_CenSat/Catagorize_CenSat_by_Altemose_labels.R 2> {log}"
 
 rule Altemose_paper_names_CenSat_read_enrichment:
     input:

@@ -73,7 +73,7 @@ snakemake --use-conda --conda-frontend conda --cores 20 \
 
 **Choosing which steps run.** Each step is a file in `workflow/rules/` included from
 `workflow/Snakefile`. To run a step, uncomment its `include:` line and its outputs in
-`rule all`. As committed, the Snakefile has steps 12, 14 and 19–30 switched on. Earlier
+`rule all`. As committed, the Snakefile has steps 12, 14 and 19–31 switched on. Earlier
 steps were run first, and later steps read their outputs with `ancient()` so they are not rerun.
 
 Set `--resources mem_mb` well above the memory of a single job. It is a global limit, so a
@@ -100,7 +100,7 @@ reruns every completed job that used it if it changes. Add a new environment fil
 ## Analysis steps
 
 Steps are numbered in the order they were developed. There are no steps 13, 15 or 23.
-Steps 19–30 were added in response to peer review.
+Steps 19–30 were added in response to peer review; step 31 builds the UCSC track hubs.
 
 | Step | Rule file | Description | Depends on |
 |---|---|---|---|
@@ -125,16 +125,62 @@ Steps 19–30 were added in response to peer review.
 | 20 | `20_Strand_specific_analysis.smk` | Strand-specific coverage (±1 kbp) around non-B motifs | 01 |
 | 21 | `21_add_K562_to_analysis.smk` | Process K562 and add it to steps 03, 04, 11, 12 and 16 | 03, 04, 11, 12, 16 |
 | 22 | `22_Alternative_origins.smk` | Signal around ini-seq2 and SNS-seq origins (Guilbaud et al. 2022), lifted over to CHM13 | 04, 10, 21 |
-| 24 | `24_HMM_Browser_tracks.smk` | BED9 browser track of the 8 ape HMM states (state names, colors) | 07 |
+| 24 | `24_HMM_Browser_tracks.smk` | BED9 browser track of the 8 ape HMM states on human (state names, colors). Superseded by step 31 | 07 |
 | 25 | `25_Sphase_contribution.smk` | DMSO-synchronized (S-phase-depleted) PDAL-Seq: S-phase vs. G0/G1 windows and their enrichment in HMM states and annotations | 03, 07 |
 | 26 | `26_Ape_PCA_and_Human_HMM_with_K562.smk` | Ape PCA and human HMM model selection including K562 | 03, 07, 09, 21 |
 | 27 | `27_Updated_Human_HMM_functional_analysis.smk` | Step 09 annotation rerun on the K562-inclusive 10-state human HMM | 04, 07, 09, 12, 14, 26 |
 | 28 | `28_Fibroblast_specific_HMM.smk` | Ape HMM fit to fibroblast lines only | 04, 07 |
 | 29 | `29_Lymphoblast_specific_HMM.smk` | Ape HMM fit to lymphoblastoid lines only | 04, 07 |
 | 30 | `30_update_SI_tables_with_revisions_data.smk` | Dataset S2–S4 rows for the K562 and DMSO data | 03, 21, 25 |
+| 31 | `31_UCSC_track_hubs.smk` | One UCSC track hub per ape genome: PDAL-Seq signal, ape HMM states, non-B motifs; human also G4 CUT&Tag (see [UCSC track hubs](#ucsc-track-hubs)) | 01, 07, 08, 21 |
 
 `Figures_Tables.smk` contains rules for figures from an earlier version of the manuscript
 and is not included by default.
+
+## UCSC track hubs
+
+Step 31 writes one track hub per genome to `results/31_UCSC_track_hubs/{Species}/`. Each folder
+holds a single-file `hub.txt` and its bigWig/bigBed files, with `bigDataUrl` paths relative to
+`hub.txt`.
+
+| Track | Format | Source |
+|---|---|---|
+| PDAL-Seq | bigWig, one per cell line | Merged `All_reads` BAMs (step 01; K562 from step 21). Per-base coverage scaled to CPM (counts per million primary mapped reads). Colored by species as in Fig. 2D |
+| Ape HMM states | bigBed 9 | 8-state Hominoidae HMM (step 07), labels and colors as in Fig. 3. Only syntenic alignment blocks have a state |
+| Non-B DNA motifs | bigBed 6, one per motif type | `resources/nonb_annotations/` as used in the paper; G4 motifs keep their strand |
+| G4 CUT&Tag (human only, hidden by default) | bigWig, one per run | The 14 HEK293T G4 CUT&Tag runs mapped in step 08, CPM |
+
+| Hub | UCSC assembly |
+|---|---|
+| Hsapien | `hs1` (CHM13v2.0) |
+| Ptroglodytes | `GCA_028858775.2` (mPanTro3) |
+| Ppaniscus | `GCA_029289425.2` (mPanPan1) |
+| Ggorilla | `GCA_029281585.2` (mGorGor1) |
+| Ppygmaeus | `GCA_028885625.2` (mPonPyg2) |
+| Pabelii | `GCA_028885655.2` (mPonAbe1) |
+| Ssyndactylus | `GCA_028878055.2` (mSymSyn1) |
+
+The ape HMM was fit to alignment blocks, and every species' Hominoidae alignment BED lists the
+blocks in the same order, so each block's state is placed on all seven genomes.
+
+The non-human apes are UCSC GenArk assemblies, which name sequences by GenBank accession
+(e.g. `CM054434.2` rather than `chr1_hap1_hsa1`). Step 31 downloads each assembly's
+`chromAlias.txt` and `chrom.sizes` from hgdownload.soe.ucsc.edu (so makova-ont needs internet
+access) and renames chromosomes to the UCSC names. Records on sequences UCSC does not have
+(e.g. chimpanzee chrM) are dropped and counted in `logs/31_UCSC_track_hubs/`.
+
+To build only the hubs:
+
+```bash
+snakemake --use-conda --conda-frontend conda --cores 20 --resources mem_mb=120000 \
+    $(for s in Hsapien Ptroglodytes Ppaniscus Ggorilla Ppygmaeus Pabelii Ssyndactylus; do
+        echo results/31_UCSC_track_hubs/$s/hub.txt; done)
+```
+
+To publish, copy each `results/31_UCSC_track_hubs/{Species}/` folder to a web server that serves
+files over HTTPS and supports byte-range requests (not GitHub). Check each hub with UCSC's
+`hubCheck https://…/hub.txt`, then load it in the Genome Browser under My Data > Track Hubs.
+The contact address in each `hub.txt` is set by `HUB_EMAIL_31` in the rule file.
 
 ## Figures and tables
 

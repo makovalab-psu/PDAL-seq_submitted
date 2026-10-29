@@ -98,7 +98,7 @@ rule mean_human_PDALseq_in_states:
     resources:
         mem_mb=5000
     shell:
-    	"Rscript workflow/scripts/07_PhyloHGMP_model/Mean_PDALseq_signal_in_states.R {input} {output} 2> {log}"      
+        "Rscript workflow/scripts/07_PhyloHGMP_model/Mean_PDALseq_signal_in_states.R {input} {output} 2> {log}"
 
 rule plot_human_HMM_vs_real_means:
     input:
@@ -113,8 +113,8 @@ rule plot_human_HMM_vs_real_means:
     resources:
         mem_mb=10000
     shell:
-    	"Rscript workflow/scripts/07_PhyloHGMP_model/Compare_GHMM_model_to_means.R {input.PDALseq} {input.Model} {output} 2> {log}"
-    	
+        "Rscript workflow/scripts/07_PhyloHGMP_model/Compare_GHMM_model_to_means.R {input.PDALseq} {input.Model} {output} 2> {log}"
+
 rule plot_to_test_human_Guassian:
     input:
         PDALseq = "data/09_Human_HMM/04_Multivariate_guassian/{states}/GHMM_states.csv",
@@ -129,7 +129,7 @@ rule plot_to_test_human_Guassian:
     resources:
         mem_mb=10000
     shell:
-    	"Rscript workflow/scripts/07_PhyloHGMP_model/plot_to_test_Guassian.R {input.PDALseq} {input.Mean} {input.Var} {output} 2> {log}"
+        "Rscript workflow/scripts/07_PhyloHGMP_model/plot_to_test_Guassian.R {input.PDALseq} {input.Mean} {input.Var} {output} 2> {log}"
 
 rule extract_human_GHMM_BIC:
     input:
@@ -165,10 +165,10 @@ rule plot_human_GHMM_BIC:
 
 rule annotate_human_state:
     input:
-    	bed = "data/09_Human_HMM/01_Remove_sex_chromosomes/Hsapien_GM24385_PDALseq.bg",
-    	states = "data/09_Human_HMM/04_Multivariate_guassian/10/GHMM_states.csv"
+        bed = "data/09_Human_HMM/01_Remove_sex_chromosomes/Hsapien_GM24385_PDALseq.bg",
+        states = "data/09_Human_HMM/04_Multivariate_guassian/10/GHMM_states.csv"
     output:
-    	expand("data/09_Human_HMM/04_Multivariate_guassian/10/state_{state}.bed", state = ["0", "1", "2", "3", "4", "5", "6", "7","8","9"])
+        expand("data/09_Human_HMM/04_Multivariate_guassian/10/state_{state}.bed", state = ["0", "1", "2", "3", "4", "5", "6", "7","8","9"])
     conda:
         "../env/Rutility.yml"
     log:
@@ -198,10 +198,10 @@ rule Count_BP_in_human_state:
      
 rule human_nonB_enrichment_in_state:
     input:
-    	state = "data/09_Human_HMM/04_Multivariate_guassian/10/state_{state}.bed",
-    	nonB = "results/04_Genome_wide_comparison_to_nonB_motifs/nonb_annotations/Hsapien/{nonb}.bed"
+        state = "data/09_Human_HMM/04_Multivariate_guassian/10/state_{state}.bed",
+        nonB = "results/04_Genome_wide_comparison_to_nonB_motifs/nonb_annotations/Hsapien/{nonb}.bed"
     output:
-    	"data/09_Human_HMM/04_Multivariate_guassian/10/State_nonB_enrichment/state_{state}/{nonb}_enrichment.bed"
+        "data/09_Human_HMM/04_Multivariate_guassian/10/State_nonB_enrichment/state_{state}/{nonb}_enrichment.bed"
     conda:
         "../env/07_PhyloHGMP_model.yml"
     log:
@@ -213,9 +213,9 @@ rule human_nonB_enrichment_in_state:
 
 rule human_compile_nonB_enrichment_in_state:
     input:
-    	expand("data/09_Human_HMM/04_Multivariate_guassian/10/State_nonB_enrichment/state_{state}/{nonb}_enrichment.bed", state = ["0", "1", "2", "3", "4", "5", "6", "7","8","9"], nonb = NONB)
+        expand("data/09_Human_HMM/04_Multivariate_guassian/10/State_nonB_enrichment/state_{state}/{nonb}_enrichment.bed", state = ["0", "1", "2", "3", "4", "5", "6", "7","8","9"], nonb = NONB)
     output:
-    	"data/09_Human_HMM/04_Multivariate_guassian/10/State_nonB_enrichment/hsapiens.csv"
+        "data/09_Human_HMM/04_Multivariate_guassian/10/State_nonB_enrichment/hsapiens.csv"
     conda:
         "../env/Rutility.yml"
     log:
@@ -229,10 +229,10 @@ rule human_compile_nonB_enrichment_in_state:
 
 rule human_functional_element_enrichment_in_state:
     input:
-    	state = "data/09_Human_HMM/04_Multivariate_guassian/10/state_{state}.bed",
-    	functional_element = "resources/functional_annotations/Saswats_annotations/Hsapien/{ann}.bed"
+        state = "data/09_Human_HMM/04_Multivariate_guassian/10/state_{state}.bed",
+        functional_element = "resources/functional_annotations/Saswats_annotations/Hsapien/{ann}.bed"
     output:
-    	"data/09_Human_HMM/04_Multivariate_guassian/10/State_functional_element_enrichment/state_{state}/{ann}_enrichment.bed"
+        "data/09_Human_HMM/04_Multivariate_guassian/10/State_functional_element_enrichment/state_{state}/{ann}_enrichment.bed"
     conda:
         "../env/07_PhyloHGMP_model.yml"
     log:
@@ -244,9 +244,9 @@ rule human_functional_element_enrichment_in_state:
         
 rule human_compile_functional_element_enrichment_in_state:
     input:
-    	expand("data/09_Human_HMM/04_Multivariate_guassian/10/State_functional_element_enrichment/state_{state}/{ann}_enrichment.bed", state = ["0", "1", "2", "3", "4", "5", "6", "7","8","9"], ann = ANNOTATIONS)
+        expand("data/09_Human_HMM/04_Multivariate_guassian/10/State_functional_element_enrichment/state_{state}/{ann}_enrichment.bed", state = ["0", "1", "2", "3", "4", "5", "6", "7","8","9"], ann = ANNOTATIONS)
     output:
-    	"data/09_Human_HMM/04_Multivariate_guassian/10/State_functional_element_enrichment/hsapiens.csv"
+        "data/09_Human_HMM/04_Multivariate_guassian/10/State_functional_element_enrichment/hsapiens.csv"
     conda:
         "../env/Rutility.yml"
     log:
@@ -260,10 +260,10 @@ rule human_compile_functional_element_enrichment_in_state:
 
 rule human_methylation_in_state:
     input:
-    	state = "data/09_Human_HMM/04_Multivariate_guassian/10/state_{state}.bed",
-    	m5C = "resources/methylationData/Hsapien.bed"
+        state = "data/09_Human_HMM/04_Multivariate_guassian/10/state_{state}.bed",
+        m5C = "resources/methylationData/Hsapien.bed"
     output:
-    	"data/09_Human_HMM/04_Multivariate_guassian/10/methylation/state_{state}.txt"
+        "data/09_Human_HMM/04_Multivariate_guassian/10/methylation/state_{state}.txt"
     conda:
         "../env/07_PhyloHGMP_model.yml"
     log:
@@ -275,9 +275,9 @@ rule human_methylation_in_state:
         
 rule human_compile_methylation_enrichment_in_state:
     input:
-    	expand("data/09_Human_HMM/04_Multivariate_guassian/10/methylation/state_{state}.txt", state = ["0", "1", "2", "3", "4", "5", "6", "7","8","9"])
+        expand("data/09_Human_HMM/04_Multivariate_guassian/10/methylation/state_{state}.txt", state = ["0", "1", "2", "3", "4", "5", "6", "7","8","9"])
     output:
-    	"data/09_Human_HMM/04_Multivariate_guassian/10/methylation/hsapiens.csv"
+        "data/09_Human_HMM/04_Multivariate_guassian/10/methylation/hsapiens.csv"
     conda:
         "../env/Rutility.yml"
     log:
@@ -292,9 +292,9 @@ rule human_compile_methylation_enrichment_in_state:
 rule  human_RNA_expression_in_state:
     input:
         state = "data/09_Human_HMM/04_Multivariate_guassian/10/state_{state}.bed",
-    	RNA = "resources/expression/RNAseq_default.bg"
+        RNA = "resources/expression/RNAseq_default.bg"
     output:
-    	"data/09_Human_HMM/04_Multivariate_guassian/10/State_RNA_expression/state_{state}.txt"
+        "data/09_Human_HMM/04_Multivariate_guassian/10/State_RNA_expression/state_{state}.txt"
     conda:
         "../env/07_PhyloHGMP_model.yml"
     log:
@@ -306,9 +306,9 @@ rule  human_RNA_expression_in_state:
         
 rule human_compile_RNA_expression_in_state:
     input:
-    	expand("data/09_Human_HMM/04_Multivariate_guassian/10/State_RNA_expression/state_{state}.txt", state = ["0", "1", "2", "3", "4", "5", "6", "7","8","9"])
+        expand("data/09_Human_HMM/04_Multivariate_guassian/10/State_RNA_expression/state_{state}.txt", state = ["0", "1", "2", "3", "4", "5", "6", "7","8","9"])
     output:
-    	"data/09_Human_HMM/04_Multivariate_guassian/10/State_RNA_expression/hsapiens.csv"
+        "data/09_Human_HMM/04_Multivariate_guassian/10/State_RNA_expression/hsapiens.csv"
     conda:
         "../env/Rutility.yml"
     log:
@@ -320,10 +320,10 @@ rule human_compile_RNA_expression_in_state:
 
 rule intersect_human_and_ape_hmm:
     input:
-    	expand("data/09_Human_HMM/04_Multivariate_guassian/10/State_RNA_expression/state_{state}.txt", state = ["0", "1", "2", "3", "4", "5", "6", "7","8","9"]),
-    	expand("data/07_PhyloHGMP_model/Multivariate_guassian_HMM/hominoidae/8/state_{state}.bed", state = ["0", "1", "2", "3", "4", "5", "6", "7"])
+        expand("data/09_Human_HMM/04_Multivariate_guassian/10/State_RNA_expression/state_{state}.txt", state = ["0", "1", "2", "3", "4", "5", "6", "7","8","9"]),
+        expand("data/07_PhyloHGMP_model/Multivariate_guassian_HMM/hominoidae/8/state_{state}.bed", state = ["0", "1", "2", "3", "4", "5", "6", "7"])
     output:
-    	"data/09_Human_HMM/04_Multivariate_guassian/10/intersect_results.csv"
+        "data/09_Human_HMM/04_Multivariate_guassian/10/intersect_results.csv"
     conda:
         "../env/Pyutility_plus_bedtools.yml"
     log:

@@ -47,17 +47,17 @@ rule genome_window_coverage:
         
 rule compile_correlation:
     input:
-    	expand("data/03_Correlation_and_black_list_unmappable_regions/03_genome_window_coverage/{size}_nucleotides/{sample}.bed", size = WINDOWS, sample = SAMPLES)
+        expand("data/03_Correlation_and_black_list_unmappable_regions/03_genome_window_coverage/{size}_nucleotides/{sample}.bed", size = WINDOWS, sample = SAMPLES)
     output:
-    	"results/03_Correlation_and_black_list_unmappable_regions/Technical_replicate_correlation.csv"
+        "results/03_Correlation_and_black_list_unmappable_regions/Technical_replicate_correlation.csv"
     log:
-    	"logs/03_Correlation_and_black_list_unmappable_regions/04_compile_correlation.txt"
+        "logs/03_Correlation_and_black_list_unmappable_regions/04_compile_correlation.txt"
     conda:
-    	"../env/Rutility.yml"
+        "../env/Rutility.yml"
     resources:
                 mem_mb=1000
     shell:
-    	"Rscript workflow/scripts/03_Correlation_and_black_list_unmappable_regions/compile_correlation.R 2> {log}"
+        "Rscript workflow/scripts/03_Correlation_and_black_list_unmappable_regions/compile_correlation.R 2> {log}"
 
 
 ####Blacklist####
@@ -78,7 +78,7 @@ rule window_coverage_for_blacklist:
     resources:
         mem_mb=1000
     shell:
-    	"bash workflow/scripts/03_Correlation_and_black_list_unmappable_regions/genome_window_coverage_for_blacklist.sh {input.bam} 10000 {output} {wildcards.sample} 2> {log}"
+        "bash workflow/scripts/03_Correlation_and_black_list_unmappable_regions/genome_window_coverage_for_blacklist.sh {input.bam} 10000 {output} {wildcards.sample} 2> {log}"
 
 
 rule make_raw_blacklist_files:
@@ -89,11 +89,11 @@ rule make_raw_blacklist_files:
     log:
         "data/03_Correlation_and_black_list_unmappable_regions/05_raw_blacklist_files.txt"
     conda:
-    	"../env/Rutility.yml"
+        "../env/Rutility.yml"
     resources:
         mem_mb=8000
     shell:
-    	"Rscript workflow/scripts/03_Correlation_and_black_list_unmappable_regions/black_list_windows.R 1.1 2> {log}"
+        "Rscript workflow/scripts/03_Correlation_and_black_list_unmappable_regions/black_list_windows.R 1.1 2> {log}"
 
 rule merge_blacklist:
     input:
@@ -107,7 +107,7 @@ rule merge_blacklist:
     resources:
         mem_mb=1000
     shell:
-    	"bedtools merge -d 1 -i {input} > {output} 2> {log}"
+        "bedtools merge -d 1 -i {input} > {output} 2> {log}"
 
 rule add_sex_chromosomes_to_blacklist:
     input:
@@ -122,7 +122,7 @@ rule add_sex_chromosomes_to_blacklist:
     resources:
         mem_mb=1000
     shell:
-    	"bash workflow/scripts/03_Correlation_and_black_list_unmappable_regions/add_sex_chromosomes_to_blacklist.sh {input.bl} {input.chr_sizes} {output} 2> {log}"
+        "bash workflow/scripts/03_Correlation_and_black_list_unmappable_regions/add_sex_chromosomes_to_blacklist.sh {input.bl} {input.chr_sizes} {output} 2> {log}"
 
 ####Black list stats####
 
@@ -140,37 +140,37 @@ rule filter_reads_by_blacklist:
     resources:
         mem_mb=1000
     shell:
-    	"bash workflow/scripts/03_Correlation_and_black_list_unmappable_regions/filter_reads_by_blacklist.sh {input.bam} {output.outside} {output.inside} {wildcards.sample} 2> {log}"
+        "bash workflow/scripts/03_Correlation_and_black_list_unmappable_regions/filter_reads_by_blacklist.sh {input.bam} {output.outside} {output.inside} {wildcards.sample} 2> {log}"
 
 rule estimate_unique_maps:
-	input:
-		"data/03_Correlation_and_black_list_unmappable_regions/07_filter_reads_by_blacklist/{blacklist}/{sample}.bam"
-	output:
-		"data/03_Correlation_and_black_list_unmappable_regions/08_estimate_unique_maps_by_blacklist/{blacklist}/{sample}.txt"
-	log:
-		"logs/03_Correlation_and_black_list_unmappable_regions/08_estimate_unique_maps_by_blacklist/{blacklist}/{sample}.txt"
-	conda:
-		"../env/01_preprocess_data.yml"
-	resources:
-		mem_mb=1000
-	shell:
-		"bash workflow/scripts/02_preprocessing_statistics/Estimate_unique_maps.sh {input} > {output} 2> {log}"
+        input:
+                "data/03_Correlation_and_black_list_unmappable_regions/07_filter_reads_by_blacklist/{blacklist}/{sample}.bam"
+        output:
+                "data/03_Correlation_and_black_list_unmappable_regions/08_estimate_unique_maps_by_blacklist/{blacklist}/{sample}.txt"
+        log:
+                "logs/03_Correlation_and_black_list_unmappable_regions/08_estimate_unique_maps_by_blacklist/{blacklist}/{sample}.txt"
+        conda:
+                "../env/01_preprocess_data.yml"
+        resources:
+                mem_mb=1000
+        shell:
+                "bash workflow/scripts/02_preprocessing_statistics/Estimate_unique_maps.sh {input} > {output} 2> {log}"
 
 BLACKLIST = ["inside_blacklist", "outside_blacklist"]
 
 rule compile_unique_map_estimation:
-	input:
-		expand("data/03_Correlation_and_black_list_unmappable_regions/08_estimate_unique_maps_by_blacklist/{blacklist}/{sample}.txt", blacklist = BLACKLIST, sample = DATA)
-	output:
-		"results/03_Correlation_and_black_list_unmappable_regions/Unique_maps_inside_and_outside_blacklist.csv"
-	log:
-		"logs/03_Correlation_and_black_list_unmappable_regions/Unique_maps_inside_and_outside_blacklist.txt"
-	conda:
-		"../env/Rutility.yml"
-	resources:
-		mem_mb=1000
-	shell:
-		"Rscript workflow/scripts/03_Correlation_and_black_list_unmappable_regions/compile_unique_map_estimation.R 2> {log}"
+        input:
+                expand("data/03_Correlation_and_black_list_unmappable_regions/08_estimate_unique_maps_by_blacklist/{blacklist}/{sample}.txt", blacklist = BLACKLIST, sample = DATA)
+        output:
+                "results/03_Correlation_and_black_list_unmappable_regions/Unique_maps_inside_and_outside_blacklist.csv"
+        log:
+                "logs/03_Correlation_and_black_list_unmappable_regions/Unique_maps_inside_and_outside_blacklist.txt"
+        conda:
+                "../env/Rutility.yml"
+        resources:
+                mem_mb=1000
+        shell:
+                "Rscript workflow/scripts/03_Correlation_and_black_list_unmappable_regions/compile_unique_map_estimation.R 2> {log}"
 
    
 

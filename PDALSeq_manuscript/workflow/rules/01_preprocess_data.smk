@@ -19,7 +19,7 @@ rule trim_fastq:
         "PDALseq_data/Raw_fastq/{sample}.fastq.gz"
     output:
         fastq = temp("PDALseq_data/Trimmed_fastq/{sample}.fastq.gz")
-	#report = "PDALseq_data/Trimmed_fastq/{sample}_fastp_report.html" 
+        #report = "PDALseq_data/Trimmed_fastq/{sample}_fastp_report.html"
     log:
         "logs/01_preprocess_data/02_Trim_fastq/{sample}.txt"
     conda:
@@ -35,10 +35,10 @@ rule bwa_index:
         "resources/genomes/{species}.fasta"
     output:
         "resources/genomes/{species}.fasta.amb",
-	"resources/genomes/{species}.fasta.ann",
-	"resources/genomes/{species}.fasta.pac",
-	"resources/genomes/{species}.fasta.bwt",
-	"resources/genomes/{species}.fasta.sa"
+        "resources/genomes/{species}.fasta.ann",
+        "resources/genomes/{species}.fasta.pac",
+        "resources/genomes/{species}.fasta.bwt",
+        "resources/genomes/{species}.fasta.sa"
     log:
         "logs/01_preprocess_data/03_bwa_index/{species}.txt"
     conda:
@@ -51,7 +51,7 @@ rule bwa_index:
 rule bwa_mem:
     input:
         expand("resources/genomes/{species}.fasta.{ifile}", species = SPECIES, ifile = ["amb", "ann", "pac", "bwt", "sa"]),
-	fastq = "PDALseq_data/Trimmed_fastq/{sample}.fastq.gz"
+        fastq = "PDALseq_data/Trimmed_fastq/{sample}.fastq.gz"
     output:
         temp("PDALseq_data/Mapped_sam/{sample}.sam")
     log:
@@ -111,7 +111,7 @@ rule Remove_low_MapQ:
 rule Make_merge_list_all_reads:
     input:
         expand("PDALseq_data/Mapped_deduplicated_bam/{sample}.bam", sample=SAMPLES),
-	Samples = "PDALseq_samples.txt"
+        Samples = "PDALseq_samples.txt"
     output:
         "data/01_preprocess_data/All_reads/{experiment}.txt"
     log:
@@ -126,7 +126,7 @@ rule Make_merge_list_all_reads:
 rule Make_merge_list_high_MapQ_reads:
     input:
         expand("PDALseq_data/Mapped_deduplicated_high_MapQ_bam/{sample}.bam", sample=SAMPLES),
-	Samples = "PDALseq_samples.txt"
+        Samples = "PDALseq_samples.txt"
     output:
         "data/01_preprocess_data/High_MapQ/{experiment}.txt"
     log:
@@ -142,7 +142,7 @@ rule Make_merge_list_high_MapQ_reads:
 rule Merge_mapped_deduplicated_bam:
     input:
         expand("PDALseq_data/Mapped_deduplicated_bam/{sample}.bam", sample=SAMPLES),
-	bamlist = "data/01_preprocess_data/All_reads/{experiment}.txt"
+        bamlist = "data/01_preprocess_data/All_reads/{experiment}.txt"
     output:
         "data/01_preprocess_data/All_reads/{experiment}.bam"
     log:
@@ -157,7 +157,7 @@ rule Merge_mapped_deduplicated_bam:
 rule Merge_mapped_deduplicated_high_MapQ_bam:
     input:
         expand("PDALseq_data/Mapped_deduplicated_high_MapQ_bam/{sample}.bam", sample=SAMPLES),
-	bamlist = "data/01_preprocess_data/High_MapQ/{experiment}.txt"
+        bamlist = "data/01_preprocess_data/High_MapQ/{experiment}.txt"
     output:
         "data/01_preprocess_data/High_MapQ/{experiment}.bam"
     log:
@@ -213,8 +213,8 @@ rule chr_size:
 
 rule bg_to_bigwig:
     input:
-      	expand("resources/genomes/{species}.chrom.sizes", species = SPECIES),
-	bg = "data/01_preprocess_data/{data}.bg"
+        expand("resources/genomes/{species}.chrom.sizes", species = SPECIES),
+        bg = "data/01_preprocess_data/{data}.bg"
     output:
         "data/01_preprocess_data/{data}.bigwig"
     log:
