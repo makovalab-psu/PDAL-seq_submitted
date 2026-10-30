@@ -41,6 +41,13 @@ _SPECIES_31 = {
     "Ssyndactylus": ("GCA_028878055.2", "siamang",            "mSymSyn1",  "mSymSyn1.pri.cur.20240514", "49,55,87"),
 }
 
+# Chromosome pairs to swap in the non-B annotations before renaming.
+# The siamang non-B calls are on mSymSyn1 v2.1 (20240514), which only swapped
+# the chr12 and chr19 labels relative to v2.0 (GCA_028878055.2, used by the hub).
+_NONB_CHROM_SWAP_31 = {
+    "Ssyndactylus": "chr12,chr19",
+}
+
 # non-B type in file names: (track label, description)
 _NONB_31 = {
     "APR": ("APR", "A-phased repeats"),
@@ -187,7 +194,8 @@ rule nonb_bigbed_31:
         bed = temp("data/31_UCSC_track_hubs/04_nonb/{hub_species}/{nonb}.bed"),
         bb = "results/31_UCSC_track_hubs/{hub_species}/nonb_{nonb}.bb"
     params:
-        label = lambda wc: _NONB_31[wc.nonb][0]
+        label = lambda wc: _NONB_31[wc.nonb][0],
+        swap = lambda wc: _NONB_CHROM_SWAP_31.get(wc.hub_species, "")
     log:
         "logs/31_UCSC_track_hubs/04_nonb/{hub_species}/{nonb}.txt"
     conda:
@@ -195,7 +203,7 @@ rule nonb_bigbed_31:
     resources:
         mem_mb=8000
     shell:
-        "(bash workflow/scripts/31_UCSC_track_hubs/nonb_to_bed6.sh {input.nonb} {params.label} "
+        "(bash workflow/scripts/31_UCSC_track_hubs/nonb_to_bed6.sh {input.nonb} {params.label} '{params.swap}' "
         "| python workflow/scripts/31_UCSC_track_hubs/rename_chroms.py {input.alias} "
         "| LC_ALL=C sort -k1,1 -k2,2n > {output.bed}) 2> {log} && "
         "bedToBigBed -type=bed6 {output.bed} {input.sizes} {output.bb} 2>> {log}"
