@@ -103,8 +103,6 @@ rule prepare_nonb_bed_20:
         ),
     output:
         "data/20_Strand_specific_analysis/02_nonb_beds/{species}/{nonb}.bed"
-    params:
-        swap = lambda wildcards: NONB_CHROM_SWAP.get(wildcards.species, "")
     log:
         "logs/20_Strand_specific_analysis/02_nonb_beds/{species}/{nonb}.txt"
     conda:
@@ -113,7 +111,7 @@ rule prepare_nonb_bed_20:
         mem_mb=2000
     shell:
         "bash workflow/scripts/20_Strand_specific_analysis/prepare_nonb_bed.sh "
-        "{input} {output} '{params.swap}' 2> {log}"
+        "{input} {output} 2> {log}"
 
 
 rule compute_strand_profile_20:

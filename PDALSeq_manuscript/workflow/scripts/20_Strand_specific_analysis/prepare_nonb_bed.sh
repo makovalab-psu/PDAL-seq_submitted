@@ -5,7 +5,6 @@
 # Arguments:
 #   $1  input BED (raw from resources/nonb_annotations/)
 #   $2  output BED
-#   $3  optional pair of chromosomes to swap, e.g. chr12,chr19 (see swap_chrom_pair.awk)
 #
 # Behaviour:
 #   - Filters out sex-chromosome features (chrX, chrY, chrW, chrZ and
@@ -18,7 +17,6 @@ set -euo pipefail
 
 input=$1
 output=$2
-swap=${3:-}
 
 mkdir -p "$(dirname "$output")"
 
@@ -35,11 +33,11 @@ if [ "$ncols" -ge 6 ]; then
     awk 'NF>=6 {
         if ($1 ~ /^chrX/ || $1 ~ /^chrY/ || $1 ~ /^chrW/ || $1 ~ /^chrZ/) next
         print $1"\t"$2"\t"$3"\t"$4"\t"$5"\t"$6
-    }' "$input" | awk -v pair="$swap" -f workflow/scripts/swap_chrom_pair.awk > "$output"
+    }' "$input" > "$output"
 else
     # BED3: no strand info
     awk 'NF>=3 {
         if ($1 ~ /^chrX/ || $1 ~ /^chrY/ || $1 ~ /^chrW/ || $1 ~ /^chrZ/) next
         print $1"\t"$2"\t"$3
-    }' "$input" | awk -v pair="$swap" -f workflow/scripts/swap_chrom_pair.awk > "$output"
+    }' "$input" > "$output"
 fi
