@@ -155,7 +155,7 @@ rule Get_SST1_SATR1_SATR2_LSAU_annotations_from_rm_out:
     resources:
         mem_mb=1000
     shell:
-        "bash workflow/scripts/17_PDALseq_reads_in_CenSat/intersect_censat_nonB.sh 2> {log}"
+        "bash workflow/scripts/17_PDALseq_reads_in_CenSat/Get_SST1_SATR1_SATR2_LSAU_annotations_from_rm.out.sh 2> {log}"
 
 rule Select_sat_class_enrichment:
     input:

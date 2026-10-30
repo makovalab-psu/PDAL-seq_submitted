@@ -16,6 +16,10 @@ ANNOTATIONS = ["cds_protCode_singleTrans", "ngnr_protCode_singleTrans", "chrG_cp
 df_benchmark = pd.read_csv("resources/Epigenetic_datasets/BG4_Rloop_CHIP_CutTag_experiments.txt", sep='\t')
 BENCHMARKS = df_benchmark['Run']
 ATAC_SRA = ["SRR13051064", "SRR13051019", "SRR13051041", "SRR13051198", "SRR13051203", "SRR13051201"]
+# Chromosome pairs to swap in raw non-B annotations (resources/nonb_annotations/) before use.
+# The siamang non-B calls are on mSymSyn1 v2.1 (20240514), which only swapped the chr12 and chr19
+# labels relative to v2.0 (GCA_028878055.2), the assembly the reads are mapped to.
+NONB_CHROM_SWAP = {"Ssyndactylus": "chr12,chr19"}
 
 # The final products for the pipeline are specified here
 rule all:

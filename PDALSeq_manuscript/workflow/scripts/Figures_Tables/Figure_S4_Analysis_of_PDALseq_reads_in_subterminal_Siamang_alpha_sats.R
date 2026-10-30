@@ -54,8 +54,11 @@ df.GQ = df %>% filter(nonB == "GQ")
 df.plot_kmeans = data.frame("chr" = df.IR$chr,"start" = df.IR$start, "end" = df.IR$end, "IR" = df.IR$nonb.count, "GQ" = df.GQ$nonb.count, "PDALseq" = df.IR$reads, "Experiment" = df.IR$Experiment, "interval" = df.IR$interval)
 
 df.Kmeans = df.plot_kmeans  %>% select(IR,GQ,PDALseq) 
+set.seed(1)
 KMEANS = kmeans(df.Kmeans, centers = 3, nstart = 20)
-df.plot_kmeans$cluster = factor(as.character(KMEANS$cluster), levels = c("1", "2", "3"), labels = c("genome cluster", "alpha-sat cluster", "genome cluster"))
+#kmeans cluster numbers are arbitrary; the alpha-sat cluster is the one with the highest mean IR coverage
+alpha_sat_cluster = which.max(KMEANS$centers[, "IR"])
+df.plot_kmeans$cluster = factor(ifelse(KMEANS$cluster == alpha_sat_cluster, "alpha-sat cluster", "genome cluster"), levels = c("genome cluster", "alpha-sat cluster"))
 
 
 PA = ggplot(df.plot_kmeans, aes(x = IR, y = PDALseq, color = cluster, shape = cluster)) +

@@ -20,8 +20,8 @@ do
    cat resources/nonb_annotations/mPonAbe1.pri.cur.20231205.$i.bed | awk '{print $1 "\t" $2 "\t" $3}' > results/04_Genome_wide_comparison_to_nonB_motifs/nonb_annotations/Pabelii/$i.bed
    #Ppygmaeus
    cat resources/nonb_annotations/mPonPyg2.pri.cur.20231122.$i.bed | awk '{print $1 "\t" $2 "\t" $3}' > results/04_Genome_wide_comparison_to_nonB_motifs/nonb_annotations/Ppygmaeus/$i.bed
-   #Ssyndactylus
-   cat resources/nonb_annotations/mSymSyn1.pri.cur.20240514.$i.bed | awk '{print $1 "\t" $2 "\t" $3}' > results/04_Genome_wide_comparison_to_nonB_motifs/nonb_annotations/Ssyndactylus/$i.bed
+   #Ssyndactylus (annotation is on mSymSyn1 v2.1; swap chr12/chr19 back to the v2.0 labels of the reference)
+   cat resources/nonb_annotations/mSymSyn1.pri.cur.20240514.$i.bed | awk '{print $1 "\t" $2 "\t" $3}' | awk -v pair=chr12,chr19 -f workflow/scripts/swap_chrom_pair.awk > results/04_Genome_wide_comparison_to_nonB_motifs/nonb_annotations/Ssyndactylus/$i.bed
 done
 
 echo "done"
